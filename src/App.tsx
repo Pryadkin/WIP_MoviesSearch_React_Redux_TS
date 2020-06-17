@@ -1,11 +1,16 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter as Router, } from 'react-router-dom';
 
-function App() {
+import SearchFilmsPage from './pages/SearchFilmsPage';
+
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      hel
-    </div>
+    <Router>
+      <SearchFilmsPage />
+    </Router>
   );
 }
 

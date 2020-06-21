@@ -1,5 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import { Route } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { IApplicationState } from '../../redux/rootReducer';
+import { setPicture } from '../../redux/actions';
+// import { useHistory } from 'react-router-dom';
+import { push } from 'connected-react-router'
+
+import styles from './SearchNavbar.module.scss';
+import cx from 'classnames';
 import {
   Navbar,
   Nav,
@@ -9,13 +17,29 @@ import {
 } from 'react-bootstrap';
 
 
-import styles from './SearchNavbar.module.scss';
-import cx from 'classnames';
-
 
 const SearchNavbar = () => {
   const [title, setTitle] = useState('');
-  const [isWithPicture, setWithPicture] = useState(true); // TODO: will have changed to useSelector
+  const isWithPicture = useSelector((state: IApplicationState) => state.movieStateReducer.isWithPicture);
+  const dispatch = useDispatch();
+  // const history = useHistory();
+
+  const setPictureHandler = () => {
+    dispatch(setPicture());
+  }
+
+  // console.log(pathname)
+
+  const submitHandler = (e: MouseEvent) => {
+    e.preventDefault();
+    // if (title) {
+    // alert('hey')
+    // history.push(`/search/'${title}'/1`)
+    // props.push(`/search`);
+    // dispatch(setNumberPagination(1));
+    // setTitle('');
+    // }
+  };
 
   return (
     <Navbar
@@ -45,7 +69,7 @@ const SearchNavbar = () => {
 
       <Nav
         className={cx(styles.only_picture, (isWithPicture ? styles.gold : null), "mr-5")}
-      // onClick={setPictureHandler}
+        onClick={setPictureHandler}
       >
         only with picture
         </Nav>
@@ -66,7 +90,7 @@ const SearchNavbar = () => {
           type="submit"
           variant="outline-info"
           className="mr-3"
-        // onClick={submitHandler}
+          onClick={submitHandler}
         >
           Search
           </Button>

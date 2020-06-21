@@ -1,6 +1,6 @@
-import { IMovie } from '../../interfaces';
+import { IDataMovie } from '../../interfaces';
 
-function getFullPathForPosters(data: Array<IMovie>, quality: string = 'w300') {
+function getFullPathForPosters(data: Array<IDataMovie>, quality: string = 'w300') {
   return data.map((item) => {
     item.poster_path = getPoster(item.poster_path);
     return item;

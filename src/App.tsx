@@ -1,16 +1,34 @@
 import React from 'react';
-import { BrowserRouter as Router, } from 'react-router-dom';
+import { BrowserRouter as Switch, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { Store } from 'redux';
+import { History } from 'history';
+import { ConnectedRouter } from 'connected-react-router';
 
 import SearchFilmsPage from './pages/SearchFilmsPage';
+import { IApplicationState } from './redux/rootReducer';
 
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const App: React.FC = () => {
+interface AppProps {
+  store: Store<IApplicationState>
+  history: History
+}
+
+const App: React.FC<AppProps> = ({ store, history }) => {
   return (
-    <Router>
-      <SearchFilmsPage />
-    </Router>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <Switch>
+          <Route path="/" exact>
+            <SearchFilmsPage />
+          </Route>
+          <Route path="/search" exact>
+            Hello
+          </Route>
+        </Switch>
+      </ConnectedRouter>
+    </Provider>
   );
 }
 

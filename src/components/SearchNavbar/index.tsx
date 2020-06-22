@@ -1,10 +1,8 @@
 import React, { useState, MouseEvent } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { IApplicationState } from '../../redux/rootReducer';
-import { setPicture } from '../../redux/actions';
-// import { useHistory } from 'react-router-dom';
-import { push } from 'connected-react-router'
+import { setPicture, fetchMovie } from '../../redux/actions';
 
 import styles from './SearchNavbar.module.scss';
 import cx from 'classnames';
@@ -16,25 +14,22 @@ import {
   FormControl
 } from 'react-bootstrap';
 
-
-
 const SearchNavbar = () => {
   const [title, setTitle] = useState('');
   const isWithPicture = useSelector((state: IApplicationState) => state.movieStateReducer.isWithPicture);
   const dispatch = useDispatch();
-  // const history = useHistory();
+  const history = useHistory();
 
   const setPictureHandler = () => {
     dispatch(setPicture());
   }
 
-  // console.log(pathname)
-
   const submitHandler = (e: MouseEvent) => {
     e.preventDefault();
     // if (title) {
     // alert('hey')
-    // history.push(`/search/'${title}'/1`)
+    history.push(`/search/${title}/1`);
+    dispatch(fetchMovie(title, true, '1'))
     // props.push(`/search`);
     // dispatch(setNumberPagination(1));
     // setTitle('');

@@ -20,11 +20,11 @@ const App: React.FC<AppProps> = ({ store, history }) => {
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <Switch>
-          <Route path="/" exact>
+          <Route path="/search" exact>
             <SearchFilmsPage />
           </Route>
-          <Route path="/search" exact>
-            Hello
+          <Route path="/search/:movie/:page" exact>
+            <SearchFilmsPage />
           </Route>
         </Switch>
       </ConnectedRouter>

@@ -19,7 +19,7 @@ const SearchFilmsPage = ({ pathname, search, hash }: HelloChildProps) => {
   const foundMovies = useSelector((state: IApplicationState) => state.movieStateReducer);
 
   // dispatch(fetchMovie('1408', true, '1'));
-  console.log(pathname);
+  // console.log(pathname);
 
 
   return (

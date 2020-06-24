@@ -1,36 +1,50 @@
-import React from 'react';
-// import { fetchMovies } from '../../api/fetchMovies';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMovie } from '../../redux/actions';
-import { IApplicationState } from '../../redux/rootReducer';
-import { connect } from 'react-redux'
-
+import { useParams } from 'react-router-dom';
 import SearchNavbar from '../../components/SearchNavbar';
+import CardsMoviesOfSearch from '../../components/CardsMovies/CardsMoviesOfSearch';
+import MyLoader from '../../components/MyLoader'
 
-export interface HelloChildProps {
-  pathname: string
-  search: string
-  hash: string
-};
+// types
+import { IApplicationState } from '../../redux/rootReducerTypes';
+import { IParams } from '../../redux/movieStateReducer/movieStateReducerTypes';
 
-
-const SearchFilmsPage = ({ pathname, search, hash }: HelloChildProps) => {
+const SearchFilmsPage = () => {
   const dispatch = useDispatch();
-  const foundMovies = useSelector((state: IApplicationState) => state.movieStateReducer);
+  const { movie, page } = useParams<IParams>();
+  const foundMovies = useSelector((state: IApplicationState) => state.movieStateReducer.foundMovies);
+  const isWithPicture = useSelector((state: IApplicationState) => state.movieStateReducer.isWithPicture);
+  const isLoading = useSelector((state: IApplicationState) => state.movieStateReducer.isLoading);
+  const profileMovies = useSelector((state: IApplicationState) => state.movieStateReducer.profileMovies);
 
-  // dispatch(fetchMovie('1408', true, '1'));
-  // console.log(pathname);
+  useEffect(() => {
+    if (movie) {
+      dispatch(fetchMovie(movie, isWithPicture, page));
+    }
+  }, [movie, page, isWithPicture, dispatch]);
 
+  if (!movie) {
 
-  return (
-    <SearchNavbar />
-  )
-};
+    return <SearchNavbar />
 
-const mapStateToProps = (state: IApplicationState) => ({
-  pathname: state.router.location.pathname,
-  search: state.router.location.search,
-  hash: state.router.location.hash,
-})
+  } else {
 
-export default connect(mapStateToProps)(SearchFilmsPage);
+    return (
+      <>
+        <SearchNavbar />
+        {foundMovies ?
+          <CardsMoviesOfSearch
+            foundMovies={foundMovies}
+            isLoading={isLoading}
+            profileMovies={profileMovies}
+          />
+          : <MyLoader />
+        }
+      </>
+    )
+
+  }
+}
+
+export default SearchFilmsPage;

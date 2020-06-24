@@ -1,12 +1,12 @@
 import { Reducer } from 'redux';
-import { movieState } from './interface';
+import { IMovieState } from '../movieStateReducer/movieStateReducerTypes';
 
 import {
   SEARCH_MOVIE,
   IS_WITH_PICTURE,
   CLEAN_MOVIES,
   CLEAN_PROFILE_MOVIES,
-  ADD_MOVIE,
+  ADD_MOVIE_TO_PROFILE,
   REMOVE_MOVIE,
   IS_LOADING,
   ADD_DETAILS,
@@ -23,7 +23,7 @@ const initialState = {
   currentNumberPagination: 1
 };
 
-export const movieStateReducer: Reducer<movieState> = (state = initialState, action) => {
+export const movieStateReducer: Reducer<IMovieState> = (state = initialState, action) => {
   switch (action.type) {
     case SEARCH_MOVIE:
       return {
@@ -50,7 +50,7 @@ export const movieStateReducer: Reducer<movieState> = (state = initialState, act
         ...state,
         profileMovies: null
       };
-    case ADD_MOVIE:
+    case ADD_MOVIE_TO_PROFILE:
       return {
         ...state,
         profileMovies: [action.payload, ...state.profileMovies]

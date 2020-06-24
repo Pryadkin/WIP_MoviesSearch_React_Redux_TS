@@ -1,7 +1,7 @@
 import React, { useState, MouseEvent } from 'react';
 import { Route, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { IApplicationState } from '../../redux/rootReducer';
+import { IApplicationState } from '../../redux/rootReducerTypes';
 import { setPicture, fetchMovie } from '../../redux/actions';
 
 import styles from './SearchNavbar.module.scss';
@@ -15,7 +15,7 @@ import {
 } from 'react-bootstrap';
 
 const SearchNavbar = () => {
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState<string>('');
   const isWithPicture = useSelector((state: IApplicationState) => state.movieStateReducer.isWithPicture);
   const dispatch = useDispatch();
   const history = useHistory();

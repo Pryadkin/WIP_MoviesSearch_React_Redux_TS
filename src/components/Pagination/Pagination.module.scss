@@ -1,0 +1,67 @@
+.pagination {
+  display: flex;
+  margin: 20px 0;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  position: relative;
+}
+
+.double_arrow_left,
+.double_arrow_right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-55%);
+
+  img {
+    cursor: pointer;
+    width: 20px;
+    height: 100%;
+  }
+}
+
+.double_arrow_left {
+  left: -20px; 
+}
+
+.double_arrow_right {
+  right: -20px;
+
+  img {
+    transform: rotate(180deg);
+  }
+}
+
+.btn-primary {
+  outline: none !important;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  outline: none;
+
+  &:hover {
+    background-color: grey;
+    color: white;
+  }
+
+  &:focus {
+    background-color: grey !important;
+  }
+}
+
+.currentBtn {
+  background-color: grey;
+  color: white;
+
+  &:active {
+    background-color: red !important;
+  }    
+}
+
+.hidden {
+  display: none;     
+}
+
+

@@ -1,11 +1,16 @@
 import React from 'react';
 import nophoto from '../../img/nophoto.png';
-import { IFoundMoviesResults } from '../../interfaces';
 
 import cx from 'classnames';
 import styles from './index.module.scss';
 
-const CardImage = ({ poster_path, title, getLink }: IFoundMoviesResults) => {
+interface ICardImage {
+  poster: string | null
+  title: string
+  getLink: () => void
+}
+
+const CardImage = ({ poster, title, getLink }: ICardImage) => {
 
   return (
     <>

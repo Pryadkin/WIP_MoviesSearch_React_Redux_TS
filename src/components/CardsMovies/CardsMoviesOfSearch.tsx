@@ -45,14 +45,15 @@ const CardsMoviesOfSearch = ({ foundMovies, profileMovies, isLoading }: CardsMov
                   for (let i = 0; i < profileMovies.length; i++) {
                     if (movie.id === profileMovies[i].id) {
                       return (
-                        <Card
-                          mechanics='MOVIE_OF_PROFILE'
-                          key={movie.id}
-                          id={movie.id}
-                          poster={movie.poster_path}
-                          title={movie.title}
-                          releaseDate={movie.release_date}
-                        />
+                        'MOVIE_OF_PROFILE'
+                        // <Card
+                        //   mechanics='MOVIE_OF_PROFILE'
+                        //   key={movie.id}
+                        //   id={movie.id}
+                        //   poster={movie.poster_path}
+                        //   title={movie.title}
+                        //   releaseDate={movie.release_date}
+                        // />
                       )
                     }
                   }

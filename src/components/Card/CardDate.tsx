@@ -1,19 +1,22 @@
 import React from 'react';
 
+// styles
 import styles from './index.module.scss';
 
-export interface releaseDate {
+export interface ICardDate {
   release_date: string
 }
 
-const CardDate = ({ release_date }: releaseDate) => {
+const CardDate = ({ release_date }: ICardDate) => {
   const fullDate = new Date(release_date);
 
   if (!release_date) return null;
 
   const year = fullDate.getFullYear();
-  const month = fullDate.getMonth();
-  const day = fullDate.getDate();
+
+  // if we need use month, day
+  // const month = fullDate.getMonth();
+  // const day = fullDate.getDate();
 
   return (
     <h3

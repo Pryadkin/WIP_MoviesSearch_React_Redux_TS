@@ -17,7 +17,7 @@ export const SET_NUMBER_PAGINATION = "SET_NUMBER_PAGINATION";
 
 export const searchMovie = (fetchMovies: IFoundMoviesResults) => ({
   type: SEARCH_MOVIE,
-  payload: { fetchMovies }
+  payload: fetchMovies
 });
 
 export const setPicture = () => ({
@@ -55,9 +55,9 @@ export const fetchMovie = (nameMovie: string, isWithPicture: boolean, page: stri
   return async (dispatch: any) => {
     console.log('fetchMovie')
     dispatch(cleanMovies());
-    dispatch(isLoading());
+    // dispatch(isLoading());
     const foundMovies = await fetchMovies(nameMovie, isWithPicture, page);
     dispatch(searchMovie(foundMovies));
-    dispatch(isLoading());
+    // dispatch(isLoading());
   };
 };

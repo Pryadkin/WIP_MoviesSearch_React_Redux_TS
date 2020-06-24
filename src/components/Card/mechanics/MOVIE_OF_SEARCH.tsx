@@ -13,12 +13,13 @@ import CardDate from '../CardDate';
 // types
 import { IParams } from '../../../redux/movieStateReducer/movieStateReducerTypes';
 
-interface ICardMovieOfSearch {
+export interface ICardMovieOfSearch {
   id: number
-  poster_path: string
+  poster_path: string | null
   title: string
   release_date: string
   addMovieHandler: (id: number) => void
+  mechanics: 'MOVIE_OF_SEARCH';
 }
 
 const CardMovieOfSearch = ({ poster_path, title, id, release_date, addMovieHandler }: ICardMovieOfSearch) => {
@@ -33,9 +34,8 @@ const CardMovieOfSearch = ({ poster_path, title, id, release_date, addMovieHandl
     <div className={styles.card}>
       <div className={styles.body}>
         <CardImage
-          poster_path={poster_path}
+          poster={poster_path}
           title={title}
-          id={id}
           getLink={getLink}
         />
 

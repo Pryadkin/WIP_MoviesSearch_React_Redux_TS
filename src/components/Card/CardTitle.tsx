@@ -2,10 +2,14 @@ import React from 'react';
 
 import styles from './index.module.scss';
 
-const CardTitle = ({ title }) => {
+interface ITitle {
+  title: string
+}
+
+const CardTitle = ({ title }: ITitle) => {
   const maxCountLetters = 45;
 
-  const TrimTitle = () => {
+  const trimTitle = () => {
     if (title.length > maxCountLetters) {
       let shortTitle = title.slice(0, maxCountLetters);
       if (shortTitle[shortTitle.length - 1] === ' ') {
@@ -21,7 +25,7 @@ const CardTitle = ({ title }) => {
       className={styles.title}
       title={title}
     >
-      {<TrimTitle />}
+      {trimTitle()}
     </h3>
   )
 };

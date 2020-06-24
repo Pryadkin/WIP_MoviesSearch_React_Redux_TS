@@ -1,9 +1,9 @@
 import { api, api_key } from './baseUrl';
 import getFullPathForPosters from './helpers/getFullPathForPosters';
-import { IDataMovie } from '../interfaces';
+
+// interfaces
+import { IFoundMoviesResults } from '../redux/movieStateReducer/movieStateReducerTypes';
 import { IRequestMovies } from './fetchMoviesTypes';
-
-
 
 export const fetchMovies = async (name: string, isWithPicture: boolean, page: string) => {
   const params: IRequestMovies = {
@@ -23,7 +23,7 @@ export const fetchMovies = async (name: string, isWithPicture: boolean, page: st
     let { results } = data;
 
     if (isWithPicture) {
-      results = results.filter((movie: IDataMovie) => {
+      results = results.filter((movie: IFoundMoviesResults) => {
         return movie.poster_path !== null;
       });
     }

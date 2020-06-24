@@ -28,7 +28,7 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
     case SEARCH_MOVIE:
       return {
         ...state,
-        foundMovies: action.payload.foundMovies
+        foundMovies: action.payload
       };
     case ADD_DETAILS:
       return {
@@ -81,5 +81,3 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
     default: return state;
   }
 };
-
-

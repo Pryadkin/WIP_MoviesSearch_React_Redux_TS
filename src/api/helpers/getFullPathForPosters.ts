@@ -1,6 +1,6 @@
-import { IDataMovie } from '../../interfaces';
+import { IFoundMoviesResults } from '../../redux/movieStateReducer/movieStateReducerTypes';
 
-function getFullPathForPosters(data: Array<IDataMovie>, quality: string = 'w300') {
+function getFullPathForPosters(data: Array<IFoundMoviesResults>, quality: string = 'w300') {
   return data.map((item) => {
     item.poster_path = getPoster(item.poster_path);
     return item;

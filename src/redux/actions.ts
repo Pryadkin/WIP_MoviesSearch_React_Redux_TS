@@ -1,7 +1,7 @@
 import { fetchMovies } from '../api/fetchMovies';
+import { fetchDetails } from '../api/fetchDetails';
 import { IFoundMoviesResults } from './movieStateReducer/movieStateReducerTypes';
 
-// export const GET_MOVIE = "GET_MOVIE";
 export const ADD_DETAILS = "ADD_DETAILS";
 export const CLEAN_DETAILS = "CLEAN_DETAILS";
 export const ADD_MOVIE_TO_PROFILE = "ADD_MOVIE_TO_PROFILE";
@@ -32,12 +32,12 @@ export const isLoading = () => ({
   type: IS_LOADING
 });
 
-export const addMovieToProfile = (movie: IFoundMoviesResults) => ({
+export const addMovieToProfile = (movie: IFoundMoviesResults | undefined) => ({  // Because find method can return undefined
   type: ADD_MOVIE_TO_PROFILE,
   payload: movie
 });
 
-export const removeMovie = (id: string) => ({
+export const removeMovie = (id: number) => ({
   type: REMOVE_MOVIE,
   payload: id
 });
@@ -45,6 +45,11 @@ export const removeMovie = (id: string) => ({
 export const setNumberPagination = (numberPagination: number) => ({
   type: SET_NUMBER_PAGINATION,
   payload: numberPagination
+});
+
+export const addDetails = (details: IFoundMoviesResults[] | undefined) => ({
+  type: ADD_DETAILS,
+  payload: details
 });
 
 // export const cleanMovies = () => ({
@@ -60,4 +65,11 @@ export const fetchMovie = (nameMovie: string, isWithPicture: boolean, page: stri
     dispatch(searchMovie(foundMovies));
     // dispatch(isLoading());
   };
+};
+
+export const getDetailsMovie = (id: number) => {
+  return async (dispatch: any) => {
+    const details = await fetchDetails(id);
+    dispatch(addDetails(details));
+  }
 };

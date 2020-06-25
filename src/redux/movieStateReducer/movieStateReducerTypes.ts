@@ -1,3 +1,5 @@
+import { IFetchDetails } from "../../api/fetchDetailsTypes";
+
 export interface IFoundMoviesResults {
   id: number
   popularity: number
@@ -28,7 +30,7 @@ export interface IMovieState {
   isLoading: boolean
   isWithPicture: boolean
   currentNumberPagination: number
-  detailsMovie: string | null
+  detailsMovie: IFetchDetails
 };
 
 

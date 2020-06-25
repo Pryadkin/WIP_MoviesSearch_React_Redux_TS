@@ -1,0 +1,13 @@
+.navbar {
+  position: relative;
+  height: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar_brand {
+  color: gold !important;
+  padding-top: 0 !important;
+}

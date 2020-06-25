@@ -1,14 +1,20 @@
 import { IFoundMoviesResults } from '../../redux/movieStateReducer/movieStateReducerTypes';
 
-function getFullPathForPosters(data: Array<IFoundMoviesResults>, quality: string = 'w300') {
-  return data.map((item) => {
-    item.poster_path = getPoster(item.poster_path);
-    return item;
-  });
+function getFullPathForPosters(data: Array<IFoundMoviesResults> | IFoundMoviesResults, quality: string = 'w300') {
+  if (Array.isArray(data)) {
+    return data.map((item) => {
+      item.poster_path = getPoster(item.poster_path);
+      return item;
+    });
+  }
+
+  data.poster_path = getPoster(data.poster_path);
 
   function getPoster(poster: string | null) {
     return poster ? `https://image.tmdb.org/t/p/${quality}${poster}` : null;
   };
+
+  return data;
 };
 
 export default getFullPathForPosters;

@@ -4,7 +4,6 @@ import { IMovieState } from '../movieStateReducer/movieStateReducerTypes';
 import {
   SEARCH_MOVIE,
   IS_WITH_PICTURE,
-  CLEAN_MOVIES,
   CLEAN_PROFILE_MOVIES,
   ADD_MOVIE_TO_PROFILE,
   REMOVE_MOVIE,
@@ -136,11 +135,6 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
           vote_count: 0,
         },
       };
-    // case CLEAN_MOVIES:
-    //   return {
-    //     ...state,
-    //     movies: []
-    //   };
     case CLEAN_PROFILE_MOVIES:
       return {
         ...state,

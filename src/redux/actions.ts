@@ -7,7 +7,6 @@ export const CLEAN_DETAILS = "CLEAN_DETAILS";
 export const ADD_MOVIE_TO_PROFILE = "ADD_MOVIE_TO_PROFILE";
 export const REMOVE_MOVIE = "REMOVE_MOVIE";
 export const SEARCH_MOVIE = "SEARCH_MOVIE";
-export const CLEAN_MOVIES = "CLEAN_MOVIES";
 export const CLEAN_PROFILE_MOVIES = "CLEAN_PROFILE_MOVIES";
 export const IS_LOADING = "IS_LOADING";
 export const IS_WITH_PICTURE = "IS_WITH_PICTURE";
@@ -38,10 +37,6 @@ export const removeMovie = (id: number) => ({
   payload: id
 });
 
-export const cleanMovies = () => ({
-  type: CLEAN_MOVIES
-});
-
 export const setNumberPagination = (numberPagination: number) => ({
   type: SET_NUMBER_PAGINATION,
   payload: numberPagination
@@ -59,7 +54,6 @@ export const cleanDetails = () => ({
 export const fetchMovie = (nameMovie: string, isWithPicture: boolean, page: string) => {
   return async (dispatch: any) => {
     console.log('fetchMovie')
-    dispatch(cleanMovies());
     // dispatch(isLoading());
     const foundMovies = await fetchMovies(nameMovie, isWithPicture, page);
     dispatch(searchMovie(foundMovies));

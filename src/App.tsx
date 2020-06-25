@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import SearchFilmsPage from './pages/SearchFilmsPage';
 import DetailsMovie from './pages/DetailsMovie';
 
-// types
 import { IAppProps } from './redux/rootReducerTypes';
 
 import 'bootstrap/dist/css/bootstrap.min.css';

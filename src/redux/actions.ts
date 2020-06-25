@@ -24,10 +24,6 @@ export const setPicture = () => ({
   type: IS_WITH_PICTURE
 });
 
-export const cleanMovies = () => ({
-  type: CLEAN_MOVIES
-});
-
 export const isLoading = () => ({
   type: IS_LOADING
 });
@@ -42,19 +38,23 @@ export const removeMovie = (id: number) => ({
   payload: id
 });
 
+export const cleanMovies = () => ({
+  type: CLEAN_MOVIES
+});
+
 export const setNumberPagination = (numberPagination: number) => ({
   type: SET_NUMBER_PAGINATION,
   payload: numberPagination
 });
 
-export const addDetails = (details: IFoundMoviesResults[] | undefined) => ({
+export const addDetails = (details: IFoundMoviesResults[] | IFoundMoviesResults | undefined) => ({
   type: ADD_DETAILS,
   payload: details
 });
 
-// export const cleanMovies = () => ({
-//   type: CLEAN_MOVIES
-// });
+export const cleanDetails = () => ({
+  type: CLEAN_DETAILS
+});
 
 export const fetchMovie = (nameMovie: string, isWithPicture: boolean, page: string) => {
   return async (dispatch: any) => {

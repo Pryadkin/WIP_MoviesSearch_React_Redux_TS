@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { IMovieState } from '../movieStateReducer/movieStateReducerTypes';
+import { IMovieState } from './movieStateReducerTypes';
 
 import {
   SEARCH_MOVIE,
@@ -65,7 +65,7 @@ const initialState = {
     vote_count: 0,
   },
   isWithPicture: true,
-  profileMovies: null,  // TODO: []
+  profileMovies: [],
   isLoading: false,
   currentNumberPagination: 1
 };

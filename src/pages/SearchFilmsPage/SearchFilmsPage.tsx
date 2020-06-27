@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { fetchMovie, cleanDetails } from '../../redux/actions';
-import SearchNavbar from '../../components/SearchNavbar';
+import SearchNavbar from '../../components/SearchNavbar/SearchNavbar';
 import CardsMoviesOfSearch from '../../components/CardsMovies/CardsMoviesOfSearch';
-import MyLoader from '../../components/MyLoader'
+import MyLoader from '../../components/MyLoader/MyLoader'
 
 import { IApplicationState } from '../../redux/rootReducerTypes';
 import { IParams } from '../../redux/movieStateReducer/movieStateReducerTypes';

@@ -1,17 +1,18 @@
 import React from 'react';
-import Card from '../Card';
-import MyLoader from '../MyLoader';
-import Pagination from '../Pagination/Pagination';
-import TotalResults from '../TotalResults';
 import { addMovieToProfile } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
 
-// types
-import { IFoundMoviesFullData, IFoundMoviesResults } from '../../redux/movieStateReducer/movieStateReducerTypes';
+// components
+import Card from '../Card';
+import MyLoader from '../MyLoader/MyLoader';
+import Pagination from '../Pagination/Pagination';
+import TotalResults from '../TotalResults/TotalResults';
 
 // styles
 import { Container, Row, Col } from 'react-bootstrap';
 
+// types
+import { IFoundMoviesFullData, IFoundMoviesResults } from '../../redux/movieStateReducer/movieStateReducerTypes';
 export interface CardsMoviesOfSearch {
   foundMovies: IFoundMoviesFullData
   profileMovies: Array<IFoundMoviesResults> | null
@@ -45,15 +46,14 @@ const CardsMoviesOfSearch = ({ foundMovies, profileMovies, isLoading }: CardsMov
                   for (let i = 0; i < profileMovies.length; i++) {
                     if (movie.id === profileMovies[i].id) {
                       return (
-                        'MOVIE_OF_PROFILE'
-                        // <Card
-                        //   mechanics='MOVIE_OF_PROFILE'
-                        //   key={movie.id}
-                        //   id={movie.id}
-                        //   poster={movie.poster_path}
-                        //   title={movie.title}
-                        //   releaseDate={movie.release_date}
-                        // />
+                        <Card
+                          mechanics='MOVIE_OF_PROFILE'
+                          key={movie.id}
+                          id={movie.id}
+                          poster_path={movie.poster_path}
+                          title={movie.title}
+                          release_date={movie.release_date}
+                        />
                       )
                     }
                   }

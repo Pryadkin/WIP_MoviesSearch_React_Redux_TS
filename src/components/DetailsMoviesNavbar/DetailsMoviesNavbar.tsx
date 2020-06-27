@@ -11,7 +11,7 @@ const DetailsMoviesNavbar = () => {
       variant="dark"
       className={styles.navbar}
     >
-      <Container>
+      <Container className={styles.container}>
         <Navbar.Brand className={styles.navbar_brand}>
           Details Movies
         </Navbar.Brand>

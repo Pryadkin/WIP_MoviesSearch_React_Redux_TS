@@ -48,7 +48,7 @@ const SearchNavbar = () => {
 
       <Nav className="mr-auto">
         <Nav className="mr-auto">
-          <Route path="/prifile">
+          <Route path="/profile">
             <Nav.Link>
               Home
             </Nav.Link>

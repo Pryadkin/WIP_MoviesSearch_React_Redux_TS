@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import DetailsMoviesNavbar from '../../components/DetailsMoviesNavbar';
+import DetailsMoviesNavbar from '../../components/DetailsMoviesNavbar/DetailsMoviesNavbar';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDetailsMovie, addMovieToProfile, removeMovie } from '../../redux/actions';
@@ -61,8 +61,18 @@ const DetailsMovie = () => {
     return (
       <Container className={cx(styles.container, "p-0 px-5 px-md-0")}>
         <Row>
-          <Col lg={5} md={6} className={cx(styles.container_img, "justify-content-center justify-content-sm-start")}>
-            <Image className={styles.poster} src={poster_path} alt={title} />
+          <Col
+            lg={5}
+            md={6}
+            className={cx(
+              styles.container_img, "justify-content-center justify-content-sm-start"
+            )}
+          >
+            <Image
+              className={styles.poster}
+              src={poster_path}
+              alt={title}
+            />
           </Col>
 
           <Col lg={7} md={6}>
@@ -87,7 +97,6 @@ const DetailsMovie = () => {
                   ADD
                 </Button>
             }
-
 
             <ul>
               {

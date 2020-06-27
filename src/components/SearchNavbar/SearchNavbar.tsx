@@ -1,5 +1,5 @@
 import React, { useState, MouseEvent } from 'react';
-import { Route, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { IApplicationState } from '../../redux/rootReducerTypes';
 import { setPicture, fetchMovie } from '../../redux/actions';
@@ -48,17 +48,17 @@ const SearchNavbar = () => {
 
       <Nav className="mr-auto">
         <Nav className="mr-auto">
-          <Route path="/profile">
-            <Nav.Link>
-              Home
-            </Nav.Link>
-          </Route>
+          {/* <Nav.Link active> */}
+          <Link to="/profile">
+            Home
+          </Link>
+          {/* </Nav.Link> */}
 
-          <Route path="/search">
-            <Nav.Link active>
+          <Link to="/search">
+            {/* <Nav.Link active> */}
               Search
-            </Nav.Link>
-          </Route>
+            {/* </Nav.Link> */}
+          </Link>
         </Nav>
       </Nav>
 

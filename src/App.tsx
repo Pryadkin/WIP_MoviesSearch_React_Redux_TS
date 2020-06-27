@@ -34,7 +34,7 @@ const App: React.FC<IAppProps> = ({ store }) => {
           <DetailsMovie />
         </Route>
 
-        {/* <Redirect to="/search" /> */}
+        <Redirect to="/profile" />
       </Switch>
     </Provider>
   );

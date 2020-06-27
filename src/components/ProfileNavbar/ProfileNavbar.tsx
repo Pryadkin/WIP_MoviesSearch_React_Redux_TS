@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { Navbar, Nav } from 'react-bootstrap';
 
@@ -18,23 +18,17 @@ const ProfileNavbar = () => {
         Home
       </Navbar.Brand>
       <Nav className="mr-auto">
-        {/* <Route path="/profile"> */}
-        <Nav.Link active>
+        {/* <Nav.Link active> */}
+        <Link to="/profile">
           Home
-          </Nav.Link>
-        {/* </Route> */}
+          </Link>
+        {/* </Nav.Link> */}
 
-        <Route path="/search">
-          <Nav.Link>
-            Search
-          </Nav.Link>
-        </Route>
-
-        <Route path="/">
-          <Nav.Link>
-            Search
-          </Nav.Link>
-        </Route>
+        {/* <Nav.Link> */}
+        <Link to="/search">
+          Search
+          </Link>
+        {/* </Nav.Link> */}
       </Nav>
     </Navbar >
   )

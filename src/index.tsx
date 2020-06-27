@@ -1,17 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-// import { createBrowserHistory } from 'history';
-// import { routerMiddleware } from 'connected-react-router'
-// import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { rootReducer } from './redux/rootReducer';
 
-import './App.css';
+// components
+import App from './App';
 
-// const history = createBrowserHistory();
+// styles
+import './App.css';
+import './index.css';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 

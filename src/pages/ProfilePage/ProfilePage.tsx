@@ -24,6 +24,7 @@ export const ProfilePage = () => {
     if (detailsMovie) {
       dispatch(cleanDetails());
     }
+
   }, [detailsMovie, dispatch, profileMovies]);
 
   return (

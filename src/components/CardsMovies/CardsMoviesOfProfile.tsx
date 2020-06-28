@@ -10,10 +10,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 // types
 import { IApplicationState } from '../../redux/rootReducerTypes';
-import { IFoundMoviesResults } from '../../redux/movieStateReducer/movieStateReducerTypes';
-export interface ICardsMoviesOfProfile {
-  movies: Array<IFoundMoviesResults> | null
-}
+import { ICardsMoviesOfProfile } from './CardsMoviesTypes';
 
 const CardsMoviesOfProfile = ({ movies }: ICardsMoviesOfProfile) => {
   const isLoading = useSelector((state: IApplicationState) => state.movieStateReducer.isLoading);

@@ -13,7 +13,7 @@ import styles from '../index.module.scss';
 import cx from 'classnames';
 
 // types
-import { ICardMovieOfProfile } from '../index';
+import { ICardMovieOfProfile } from '../types';
 
 const CardMovieOfProfile = ({ title, id, poster_path, release_date }: ICardMovieOfProfile) => {
   const dispatch = useDispatch();

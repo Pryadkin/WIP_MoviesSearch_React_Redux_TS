@@ -12,14 +12,10 @@ import TotalResults from '../TotalResults/TotalResults';
 import { Container, Row, Col } from 'react-bootstrap';
 
 // types
-import { IFoundMoviesFullData, IFoundMoviesResults } from '../../redux/movieStateReducer/movieStateReducerTypes';
-export interface CardsMoviesOfSearch {
-  foundMovies: IFoundMoviesFullData
-  profileMovies: Array<IFoundMoviesResults> | null
-  isLoading: boolean
-}
+import { IFoundMoviesFullData } from '../../redux/movieStateReducer/movieStateReducerTypes';
+import { ICardsMoviesOfSearch } from './CardsMoviesTypes';
 
-const CardsMoviesOfSearch = ({ foundMovies, profileMovies, isLoading }: CardsMoviesOfSearch) => {
+const CardsMoviesOfSearch = ({ foundMovies, profileMovies, isLoading }: ICardsMoviesOfSearch) => {
   const dispatch = useDispatch();
 
   const {

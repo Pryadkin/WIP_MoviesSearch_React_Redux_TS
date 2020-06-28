@@ -1,9 +1,13 @@
 import React from 'react';
+
+// images
 import nophoto from '../../img/nophoto.png';
 
+// styles
 import cx from 'classnames';
 import styles from './index.module.scss';
 
+// types
 interface ICardImage {
   poster: string | null
   title: string

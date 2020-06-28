@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { setNumberPagination } from '../../redux/actions';
+
+// images
 import doubleArrowIcon from '../../img/icons/double-arrow.svg';
 
+// styles
 import styles from './Pagination.module.scss';
 import cx from 'classnames';
-import { setNumberPagination } from '../../redux/actions';
 
 // types
 import { IApplicationState } from '../../redux/rootReducerTypes';

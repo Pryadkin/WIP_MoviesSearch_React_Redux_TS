@@ -2,25 +2,8 @@
 import CardMovieOfSearch from './mechanics/MOVIE_OF_SEARCH';
 import CardMovieOfProfile from './mechanics/MOVIE_OF_PROFILE';
 
-// import { ICardMovieOfSearch } from './mechanics/MOVIE_OF_SEARCH';
-// import { ICardMovieOfProfile } from './mechanics/MOVIE_OF_PROFILE';
-
-export interface ICardMovieOfSearch {
-  id: number
-  title: string
-  poster_path: string | null
-  release_date: string
-  addMovieHandler?: (id: number) => void
-  mechanics: 'MOVIE_OF_SEARCH' | 'MOVIE_OF_PROFILE'
-}
-
-export interface ICardMovieOfProfile {
-  id: number
-  title: string
-  poster_path: string | null
-  release_date: string
-  mechanics: 'MOVIE_OF_SEARCH' | 'MOVIE_OF_PROFILE'
-}
+// types
+import { ICardMovieOfSearch, ICardMovieOfProfile } from './types';
 
 //  Object with mechanic customizations
 const mechanicsListSingle = {
@@ -36,10 +19,6 @@ const Card = (props: ICardMovieOfSearch | ICardMovieOfProfile) => {
   const {
     mechanics
   } = props;
-
-  // const renderFunc = mechanicsListSingle[mechanics].func;
-
-  // return renderFunc(props)
 
   // Search mechanic function
   const renderFunc = mechanics in mechanicsListSingle

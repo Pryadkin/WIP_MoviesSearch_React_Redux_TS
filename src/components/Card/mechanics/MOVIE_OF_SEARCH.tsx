@@ -12,7 +12,7 @@ import cx from 'classnames';
 
 // types
 import { IParams } from '../../../redux/movieStateReducer/movieStateReducerTypes';
-import { ICardMovieOfSearch } from '../index';
+import { ICardMovieOfSearch } from '../types';
 
 const CardMovieOfSearch = ({ poster_path, title, id, release_date, addMovieHandler }: ICardMovieOfSearch) => {
   const history = useHistory();

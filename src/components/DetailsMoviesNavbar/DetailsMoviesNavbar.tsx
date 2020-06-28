@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
+// styles
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import styles from "./DetailsMoviesNavbar.module.scss";
 

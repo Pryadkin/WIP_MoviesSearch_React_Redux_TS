@@ -1,7 +1,9 @@
 import React from 'react';
 
+// styles
 import styles from './index.module.scss';
 
+// types
 interface ITitle {
   title: string
 }

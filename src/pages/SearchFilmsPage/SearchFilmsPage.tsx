@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-
 import { fetchMovie, cleanDetails } from '../../redux/actions';
+
+// components
 import SearchNavbar from '../../components/SearchNavbar/SearchNavbar';
 import CardsMoviesOfSearch from '../../components/CardsMovies/CardsMoviesOfSearch';
 import MyLoader from '../../components/MyLoader/MyLoader'
 
+// types
 import { IApplicationState } from '../../redux/rootReducerTypes';
 import { IParams } from '../../redux/movieStateReducer/movieStateReducerTypes';
 

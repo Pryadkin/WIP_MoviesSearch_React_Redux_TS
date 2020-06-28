@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import DetailsMoviesNavbar from '../../components/DetailsMoviesNavbar/DetailsMoviesNavbar';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDetailsMovie, addMovieToProfile, removeMovie } from '../../redux/actions';
 import ReactStars from 'react-stars';
 import getStyledBudget from './helpers/getStyledBudget';
 
+// images
+import dollarIcon from '../../img/icons/dollarIcon.png';
+
+// components
+import DetailsMoviesNavbar from '../../components/DetailsMoviesNavbar/DetailsMoviesNavbar';
+
 // styles
 import { Container, Row, Col, Image, Button } from 'react-bootstrap';
-import dollarIcon from '../../img/icons/dollarIcon.png';
 import styles from './DetailsMovie.module.scss';
 import cx from 'classnames';
 

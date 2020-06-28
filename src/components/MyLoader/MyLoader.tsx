@@ -1,6 +1,7 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
+// styles
 import styles from './MyLoader.module.scss';
 import { Container, Row, Col } from 'react-bootstrap';
 

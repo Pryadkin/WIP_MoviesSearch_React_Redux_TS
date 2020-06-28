@@ -3,6 +3,7 @@ import React from 'react';
 // styles
 import styles from './index.module.scss';
 
+// types
 export interface ICardDate {
   release_date: string
 }

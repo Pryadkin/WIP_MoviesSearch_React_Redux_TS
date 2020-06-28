@@ -1,5 +1,6 @@
 import React from 'react';
 
+// styles
 import styles from './TotalResults.module.scss';
 
 interface ITotalResults {

@@ -1,9 +1,9 @@
 import React, { useState, MouseEvent } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { IApplicationState } from '../../redux/rootReducerTypes';
 import { setPicture, fetchMovie } from '../../redux/actions';
 
+// styles
 import styles from './SearchNavbar.module.scss';
 import cx from 'classnames';
 import {
@@ -13,6 +13,9 @@ import {
   Form,
   FormControl
 } from 'react-bootstrap';
+
+// types
+import { IApplicationState } from '../../redux/rootReducerTypes';
 
 const SearchNavbar = () => {
   const [title, setTitle] = useState<string>('');

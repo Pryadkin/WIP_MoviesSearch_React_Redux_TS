@@ -1,13 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// styles
+import styles from "./ProfileNavbar.module.scss";
 import { Navbar, Nav } from 'react-bootstrap';
 
-import styles from "./ProfileNavbar.module.scss";
-// import cx from 'classnames';
-
 const ProfileNavbar = () => {
-
   return (
     <Navbar
       bg="dark"

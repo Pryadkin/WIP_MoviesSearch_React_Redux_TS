@@ -5,6 +5,7 @@ import { IFoundMoviesResults } from './movieStateReducer/movieStateReducerTypes'
 export const ADD_DETAILS = "ADD_DETAILS";
 export const CLEAN_DETAILS = "CLEAN_DETAILS";
 export const ADD_MOVIE_TO_PROFILE = "ADD_MOVIE_TO_PROFILE";
+export const ADD_MOVIE_TO_PROFILE_FROM_LOCAL_STORAGE = "ADD_MOVIE_TO_PROFILE_FROM_LOCAL_STORAGE";
 export const REMOVE_MOVIE = "REMOVE_MOVIE";
 export const SEARCH_MOVIE = "SEARCH_MOVIE";
 export const CLEAN_PROFILE_MOVIES = "CLEAN_PROFILE_MOVIES";
@@ -27,8 +28,13 @@ export const isLoading = () => ({
   type: IS_LOADING
 });
 
-export const addMovieToProfile = (movie: IFoundMoviesResults | undefined) => ({  // Because find method can return undefined
+export const addMovieToProfile = (movie: IFoundMoviesResults | any) => ({  // Because find method can return undefined
   type: ADD_MOVIE_TO_PROFILE,
+  payload: movie
+});
+
+export const addMovieToProfileFromLocalStorage = (movie: IFoundMoviesResults | any) => ({
+  type: ADD_MOVIE_TO_PROFILE_FROM_LOCAL_STORAGE,
   payload: movie
 });
 

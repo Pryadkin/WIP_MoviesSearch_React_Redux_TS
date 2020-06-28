@@ -6,6 +6,7 @@ import {
   IS_WITH_PICTURE,
   CLEAN_PROFILE_MOVIES,
   ADD_MOVIE_TO_PROFILE,
+  ADD_MOVIE_TO_PROFILE_FROM_LOCAL_STORAGE,
   REMOVE_MOVIE,
   IS_LOADING,
   ADD_DETAILS,
@@ -99,6 +100,12 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
         ...state,
         profileMovies: [action.payload, ...state.profileMovies]
       };
+    case ADD_MOVIE_TO_PROFILE_FROM_LOCAL_STORAGE:
+      // console.log(state.profileMovies)
+      return {
+        ...state,
+        profileMovies: action.payload
+      }
     case REMOVE_MOVIE:
       return {
         ...state,

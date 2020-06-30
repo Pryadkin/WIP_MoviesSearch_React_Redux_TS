@@ -49,20 +49,14 @@ const SearchNavbar = () => {
         Search movie
       </Navbar.Brand>
 
-      <Nav className="mr-auto">
-        <Nav className="mr-auto">
-          {/* <Nav.Link active> */}
-          <Link to="/profile">
-            Home
-          </Link>
-          {/* </Nav.Link> */}
+      <Nav className={`${styles.navlink} mr-auto`}>
+        <Link to="/profile">
+          Home
+        </Link>
 
-          <Link to="/search">
-            {/* <Nav.Link active> */}
-              Search
-            {/* </Nav.Link> */}
-          </Link>
-        </Nav>
+        <Link to="/search" className={styles.active}>
+          Search
+        </Link>
       </Nav>
 
       <Nav

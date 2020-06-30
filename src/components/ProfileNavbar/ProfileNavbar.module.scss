@@ -10,4 +10,28 @@
 .navbar_brand {
   color: gold !important;
   padding-top: 0 !important;
+  padding-left: 10px !important;
+}
+
+.navlink a {
+  padding-right: 20px;
+  text-decoration: none;
+  color: white;
+
+  &:hover {
+    color: lightgray;
+  }   
+
+  
+}
+
+.navlink .active {
+  color: lightgray;
+}
+
+
+
+.navbar_brand {
+  color: gold !important;
+  padding-top: 0 !important;
 }

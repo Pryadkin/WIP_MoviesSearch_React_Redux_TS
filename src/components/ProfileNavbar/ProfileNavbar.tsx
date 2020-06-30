@@ -12,21 +12,17 @@ const ProfileNavbar = () => {
       variant="dark"
       className={styles.navbar}
     >
-      <Navbar.Brand>
+      <Navbar.Brand className={styles.navbar_brand}>
         Home
       </Navbar.Brand>
-      <Nav className="mr-auto">
-        {/* <Nav.Link active> */}
-        <Link to="/profile">
+      <Nav className={`${styles.navlink} mr-auto`}>
+        <Link to="/profile" className={styles.active}>
           Home
-          </Link>
-        {/* </Nav.Link> */}
+        </Link>
 
-        {/* <Nav.Link> */}
         <Link to="/search">
           Search
-          </Link>
-        {/* </Nav.Link> */}
+        </Link>
       </Nav>
     </Navbar >
   )

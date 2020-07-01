@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { fetchMovie, cleanDetails } from '../../redux/actions';
 
 // components
-import SearchNavbar from '../../components/SearchNavbar/SearchNavbar';
+import SearchNavbar from '../../components/Navbar/SearchNavbar/SearchNavbar';
 import CardsMoviesOfSearch from '../../components/CardsMovies/CardsMoviesOfSearch';
 import MyLoader from '../../components/MyLoader/MyLoader'
 

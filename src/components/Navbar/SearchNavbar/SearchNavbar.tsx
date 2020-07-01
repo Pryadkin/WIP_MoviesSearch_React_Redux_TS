@@ -1,10 +1,10 @@
 import React, { useState, MouseEvent } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPicture, fetchMovie } from '../../redux/actions';
+import { setPicture, fetchMovie, setNumberPagination } from '../../../redux/actions';
 
 // styles
-import styles from './SearchNavbar.module.scss';
+import styles from "./SearchNavbar.module.scss";
 import cx from 'classnames';
 import {
   Navbar,
@@ -15,7 +15,7 @@ import {
 } from 'react-bootstrap';
 
 // types
-import { IApplicationState } from '../../redux/rootReducerTypes';
+import { IApplicationState } from '../../../redux/rootReducerTypes';
 
 const SearchNavbar = () => {
   const [title, setTitle] = useState<string>('');
@@ -29,14 +29,12 @@ const SearchNavbar = () => {
 
   const submitHandler = (e: MouseEvent) => {
     e.preventDefault();
-    // if (title) {
-    // alert('hey')
-    history.push(`/search/${title}/1`);
-    dispatch(fetchMovie(title, true, '1'))
-    // props.push(`/search`);
-    // dispatch(setNumberPagination(1));
-    // setTitle('');
-    // }
+    if (title) {
+      history.push(`/search/${title}/1`);
+      dispatch(fetchMovie(title, true, '1'))
+      dispatch(setNumberPagination(1));
+      setTitle('');
+    }
   };
 
   return (
@@ -50,13 +48,13 @@ const SearchNavbar = () => {
       </Navbar.Brand>
 
       <Nav className={`${styles.navlink} mr-auto`}>
-        <Link to="/profile">
+        <NavLink to="/profile">
           Home
-        </Link>
+        </NavLink>
 
-        <Link to="/search" className={styles.active}>
+        <NavLink to="/search" className={styles.not_active}>
           Search
-        </Link>
+        </NavLink >
       </Nav>
 
       <Nav

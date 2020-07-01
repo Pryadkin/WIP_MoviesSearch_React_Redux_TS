@@ -1,10 +1,5 @@
 .navbar {
-  position: relative;
   height: 60px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .navbar_brand {
@@ -20,19 +15,10 @@
 
   &:hover {
     color: lightgray;
-  }
+  }  
 }
 
-.navlink .active {
+.navlink .not_active {
+  pointer-events: none;  
   color: lightgray;
-}
-
-.only_picture {
-  text-transform: uppercase;
-  color: white;
-  cursor: pointer;
-}
-
-.gold {
-  color: gold !important;
 }

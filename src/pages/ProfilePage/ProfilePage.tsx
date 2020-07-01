@@ -4,7 +4,7 @@ import { cleanDetails } from '../../redux/actions';
 
 // components
 import CardsMoviesOfProfile from '../../components/CardsMovies/CardsMoviesOfProfile';
-import ProfileNavbar from '../../components/ProfileNavbar/ProfileNavbar';
+import ProfileNavbar from '../../components/Navbar/ProfileNavbar/ProfileNavbar';
 
 // types
 import { IApplicationState } from '../../redux/rootReducerTypes';

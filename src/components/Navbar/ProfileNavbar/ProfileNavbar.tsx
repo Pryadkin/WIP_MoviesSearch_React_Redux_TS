@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 // styles
 import styles from "./ProfileNavbar.module.scss";
@@ -16,13 +16,13 @@ const ProfileNavbar = () => {
         Home
       </Navbar.Brand>
       <Nav className={`${styles.navlink} mr-auto`}>
-        <Link to="/profile" className={styles.active}>
+        <NavLink to="/profile" className={styles.not_active}>
           Home
-        </Link>
+        </NavLink>
 
-        <Link to="/search">
+        <NavLink to="/search">
           Search
-        </Link>
+        </NavLink>
       </Nav>
     </Navbar >
   )

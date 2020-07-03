@@ -19,7 +19,7 @@ const SearchFilmsPage = () => {
   const isWithPicture = useSelector((state: IApplicationState) => state.movieStateReducer.isWithPicture);
   const isLoading = useSelector((state: IApplicationState) => state.movieStateReducer.isLoading);
   const profileMovies = useSelector((state: IApplicationState) => state.movieStateReducer.profileMovies);
-  const detailsMovie = useSelector((state: IApplicationState) => state.movieStateReducer.detailsMovie);
+  const detailsMovie = useSelector((state: IApplicationState) => state.detailsMovieReducer.detailsMovie);
 
   useEffect(() => {
     // if open details movie and then closed it, dispatch doesn't executed

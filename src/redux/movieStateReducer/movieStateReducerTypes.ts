@@ -1,4 +1,3 @@
-import { IFetchDetails } from "../../api/fetchDetailsTypes";
 
 export interface IFoundMoviesResults {
   id: number
@@ -30,9 +29,7 @@ export interface IMovieState {
   isLoading: boolean
   isWithPicture: boolean
   currentNumberPagination: number
-  detailsMovie: IFetchDetails
 };
-
 
 // parameters for router-dom`s history
 export interface IParams {

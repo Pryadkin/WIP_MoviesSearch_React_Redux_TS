@@ -11,7 +11,7 @@ import { IApplicationState } from '../../redux/rootReducerTypes';
 
 export const ProfilePage = () => {
   const profileMovies = useSelector((state: IApplicationState) => state.movieStateReducer.profileMovies);
-  const detailsMovie = useSelector((state: IApplicationState) => state.movieStateReducer.detailsMovie);
+  const detailsMovie = useSelector((state: IApplicationState) => state.detailsMovieReducer.detailsMovie);
   const dispatch = useDispatch();
 
   useEffect(() => {

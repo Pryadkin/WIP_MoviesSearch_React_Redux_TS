@@ -11,7 +11,6 @@ import { IParams } from '../../redux/movieStateReducer/movieStateReducerTypes';
 const DetailsMoviesNavbar = () => {
   const history = useHistory();
   const { movie, page } = useParams<IParams>();
-  console.log(useParams<IParams>())
 
   const onClickHandler = () => {
     if (movie) {

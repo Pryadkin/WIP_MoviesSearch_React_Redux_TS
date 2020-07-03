@@ -23,7 +23,7 @@ const DetailsMovie = () => {
   const { page, id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
-  const detailsMovie = useSelector((state: IApplicationState) => state.movieStateReducer.detailsMovie);
+  const detailsMovie = useSelector((state: IApplicationState) => state.detailsMovieReducer.detailsMovie);
   const foundMovies = useSelector((state: IApplicationState) => state.movieStateReducer.foundMovies);
   const profileMovies = useSelector((state: IApplicationState) => state.movieStateReducer.profileMovies);
   const [isLoading, setLoading] = useState(false);

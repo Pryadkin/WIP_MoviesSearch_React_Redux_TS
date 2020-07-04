@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { BrowserRouter as Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addMovieToProfileFromLocalStorage, addFilter } from './redux/actions';
@@ -13,48 +13,38 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // types
 import { IAppProps, IApplicationState } from './redux/rootReducerTypes';
+import { IFoundMoviesResults } from './redux/movieStateReducer/movieStateReducerTypes';
 
 const App: React.FC<IAppProps> = () => {
   const dispatch = useDispatch();
   const profileMovies = useSelector((state: IApplicationState) => state.movieStateReducer.profileMovies);
   const filters = useSelector((state: IApplicationState) => state.movieStateReducer.filters);
 
-  useEffect(() => {
-    if (filters && filters.length === 0) {
+  const setDataToLocalStorage = useCallback((
+    data: IFoundMoviesResults[] | string[] | null,
+    name: string,
+    action: (name: Array<string> | string) => { type: string; payload: string | string[]; }
+  ) => {
+    if (data && data.length === 0) {
 
-      const filtersJSON = localStorage.getItem('filters');
-
-      console.log(filtersJSON)
+      const filtersJSON = localStorage.getItem(name);
 
       if (filtersJSON && JSON.parse(filtersJSON).length !== 0) {
         const data = JSON.parse(filtersJSON);
-        console.log(data)
-        dispatch(addFilter(data));
+        dispatch(action(data));
       }
 
     } else {
 
-      localStorage.setItem('filters', JSON.stringify(filters));
+      localStorage.setItem(name, JSON.stringify(data));
 
     }
+  }, [dispatch])
 
-    /////////////////////////
-
-    if (profileMovies && profileMovies.length === 0) {
-
-      const profileMoviesJSON = localStorage.getItem('profileMovies');
-
-      if (profileMoviesJSON && JSON.parse(profileMoviesJSON).length !== 0) {
-        const data = JSON.parse(profileMoviesJSON);
-        dispatch(addMovieToProfileFromLocalStorage(data));
-      }
-
-    } else {
-
-      localStorage.setItem('profileMovies', JSON.stringify(profileMovies));
-
-    }
-  }, [profileMovies, filters, dispatch])
+  useEffect(() => {
+    setDataToLocalStorage(filters, 'filters', addFilter);
+    setDataToLocalStorage(profileMovies, 'profileMovies', addMovieToProfileFromLocalStorage);
+  }, [profileMovies, filters, dispatch, setDataToLocalStorage])
 
   return (
     <Switch>

@@ -36,7 +36,7 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
         profileMovies: null
       };
     case ADD_MOVIE_TO_PROFILE:
-      action.payload.ganres = []; // adding ganres proporty to profileMovies
+      action.payload.genres = []; // adding genres proporty to profileMovies
       return {
         ...state,
         profileMovies: [action.payload, ...state.profileMovies]
@@ -59,7 +59,7 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
         ...state,
         profileMovies: state.profileMovies?.map(movie => {
           if (movie.id === action.payload.id) {
-            movie.ganres?.push(action.payload.ganre)
+            movie.genres?.push(action.payload.ganre)
             return movie;
           } else {
             return movie;

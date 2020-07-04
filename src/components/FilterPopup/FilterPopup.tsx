@@ -16,19 +16,41 @@ export interface IFilterPopup {
 
 const FilterPopup = ({ id }: IFilterPopup) => {
   const filters = useSelector((state: IApplicationState) => state.movieStateReducer.filters);
+  const profileMovies = useSelector((state: IApplicationState) => state.movieStateReducer.profileMovies);
   const dispatch = useDispatch();
-  const [newGanre, setNewGanre] = useState('');
+  const [newGanre, setNewGenre] = useState(filters[0]);
 
   const addGanreHandler = (e: React.MouseEvent) => {
     e.preventDefault();
-    // console.log(+id, newGanre)
-    dispatch(addFilterToMovie(+id, newGanre));
+    profileMovies?.map(movie => {
+      if (movie.id === +id) {
+        if (!movie.genres?.includes(newGanre)) {
+          dispatch(addFilterToMovie(+id, newGanre));
+          alert("Genre added")
+        } else {
+          alert("Genre already exists")
+        }
+      }
+    })
+  }
+
+  const removeGanreHandler = (e: React.MouseEvent) => {
+    e.preventDefault();
+    profileMovies?.map(movie => {
+      if (movie.id === +id) {
+        if (!movie.genres?.includes(newGanre)) {
+          dispatch(addFilterToMovie(+id, newGanre));
+          alert("Genre added")
+        } else {
+          alert("Genre already exists")
+        }
+      }
+    })
   }
 
   const newGanreHandler = (e: React.MouseEvent) => {
     e.preventDefault();
     dispatch(addFilter(newGanre));
-    // setNewGanre('');
   }
 
   const closeHandler = (e: React.MouseEvent) => {
@@ -39,10 +61,10 @@ const FilterPopup = ({ id }: IFilterPopup) => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <InputGroup className="mb-3">
+        <InputGroup className="mb-2">
           <FormControl
             placeholder="new ganre"
-            onChange={(e) => setNewGanre(e.target.value)}
+            onChange={(e) => setNewGenre(e.target.value)}
             value={newGanre}
           />
 
@@ -57,8 +79,12 @@ const FilterPopup = ({ id }: IFilterPopup) => {
           </InputGroup.Append>
         </InputGroup>
 
-        <InputGroup className="mb-3">
-          <Form.Control as="select" className={styles.select} custom>
+        <InputGroup className="mb-2">
+          <Form.Control
+            as="select"
+            className={styles.select}
+            custom
+          >
             {filters ?
               filters.map((item, index) => {
                 return (
@@ -78,6 +104,35 @@ const FilterPopup = ({ id }: IFilterPopup) => {
               onClick={addGanreHandler}
             >
               ADD
+          </Button>
+          </InputGroup.Append>
+        </InputGroup>
+
+        <InputGroup className="mb-2">
+          <Form.Control
+            as="select"
+            className={styles.select}
+            custom
+          >
+            {filters ?
+              filters.map((item, index) => {
+                return (
+                  <option key={index}>
+                    {item}
+                  </option>
+                )
+              })
+              : null
+            }
+          </Form.Control>
+
+          <InputGroup.Append>
+            <Button
+              variant="primary"
+              className={styles.popup_btn}
+              onClick={removeGanreHandler}
+            >
+              REMOVE
           </Button>
           </InputGroup.Append>
         </InputGroup>

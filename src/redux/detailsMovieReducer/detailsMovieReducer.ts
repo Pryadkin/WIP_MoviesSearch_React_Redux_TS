@@ -3,7 +3,8 @@ import { IDetailState } from './detailsMovieReducerTypes';
 
 import {
   ADD_DETAILS,
-  CLEAN_DETAILS
+  CLEAN_DETAILS,
+  FILTER_POPUP_HANDLER
 } from '../actions';
 
 const initialDetails = {
@@ -57,7 +58,8 @@ const initialDetails = {
 };
 
 const initialState = {
-  detailsMovie: initialDetails
+  detailsMovie: initialDetails,
+  filterPopup: false
 };
 
 export const detailsMovieReducer: Reducer<IDetailState> = (state = initialState, action) => {
@@ -71,6 +73,11 @@ export const detailsMovieReducer: Reducer<IDetailState> = (state = initialState,
       return {
         ...state,
         detailsMovie: initialDetails
+      };
+    case FILTER_POPUP_HANDLER:
+      return {
+        ...state,
+        filterPopup: !state.filterPopup
       };
     default: return state;
   }

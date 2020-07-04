@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { addMovieToProfileFromLocalStorage } from './redux/actions';
+import { addMovieToProfileFromLocalStorage, addFilter } from './redux/actions';
 
 // components
 import SearchFilmsPage from './pages/SearchFilmsPage/SearchFilmsPage';
@@ -17,15 +17,35 @@ import { IAppProps, IApplicationState } from './redux/rootReducerTypes';
 const App: React.FC<IAppProps> = () => {
   const dispatch = useDispatch();
   const profileMovies = useSelector((state: IApplicationState) => state.movieStateReducer.profileMovies);
+  const filters = useSelector((state: IApplicationState) => state.movieStateReducer.filters);
 
   useEffect(() => {
+    if (filters && filters.length === 0) {
+
+      const filtersJSON = localStorage.getItem('filters');
+
+      console.log(filtersJSON)
+
+      if (filtersJSON && JSON.parse(filtersJSON).length !== 0) {
+        const data = JSON.parse(filtersJSON);
+        console.log(data)
+        dispatch(addFilter(data));
+      }
+
+    } else {
+
+      localStorage.setItem('filters', JSON.stringify(filters));
+
+    }
+
+    /////////////////////////
+
     if (profileMovies && profileMovies.length === 0) {
 
       const profileMoviesJSON = localStorage.getItem('profileMovies');
 
       if (profileMoviesJSON && JSON.parse(profileMoviesJSON).length !== 0) {
         const data = JSON.parse(profileMoviesJSON);
-        console.log(data)
         dispatch(addMovieToProfileFromLocalStorage(data));
       }
 
@@ -34,7 +54,7 @@ const App: React.FC<IAppProps> = () => {
       localStorage.setItem('profileMovies', JSON.stringify(profileMovies));
 
     }
-  }, [profileMovies, dispatch])
+  }, [profileMovies, filters, dispatch])
 
   return (
     <Switch>

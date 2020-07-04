@@ -1,0 +1,41 @@
+.container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: 2px solid #80808038;
+  border-radius: 5px;  
+}
+
+.content {
+  margin: 20px 10px;
+}
+
+// .select, .text {  
+//   margin-bottom: 5px;
+//   padding: 6px 10px !important;  
+//   border-radius: 5px 0 0 5px !important;
+//   border-color: lightgray !important;
+//   background-color: #f3f3f3 !important;
+//   box-shadow: none !important;
+// }
+
+// .btn_new {
+//   background-color: #6fcc6f !important;
+//   border-color: gray !important;
+// }
+
+// .btn_close {
+//   position: absolute !important;
+//   width: 97% !important;
+//   margin: 5px;
+//   bottom: 0 !important;  
+//   background-color: #ff4747 !important;
+//   outline: none !important;
+//   border: none !important;
+// }
+

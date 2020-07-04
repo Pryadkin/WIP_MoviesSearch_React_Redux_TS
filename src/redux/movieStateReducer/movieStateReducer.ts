@@ -9,7 +9,9 @@ import {
   ADD_MOVIE_TO_PROFILE_FROM_LOCAL_STORAGE,
   REMOVE_MOVIE,
   IS_LOADING,
-  SET_NUMBER_PAGINATION
+  SET_NUMBER_PAGINATION,
+  ADD_FILTER,
+  ADD_FILTER_TO_MOVIE
 } from '../actions';
 
 const initialState = {
@@ -17,7 +19,8 @@ const initialState = {
   isWithPicture: true,
   profileMovies: [],
   isLoading: false,
-  currentNumberPagination: 1
+  currentNumberPagination: 1,
+  filters: []
 };
 
 export const movieStateReducer: Reducer<IMovieState> = (state = initialState, action) => {
@@ -33,12 +36,12 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
         profileMovies: null
       };
     case ADD_MOVIE_TO_PROFILE:
+      action.payload.ganres = []; // adding ganres proporty to profileMovies
       return {
         ...state,
         profileMovies: [action.payload, ...state.profileMovies]
       };
     case ADD_MOVIE_TO_PROFILE_FROM_LOCAL_STORAGE:
-      // console.log(state.profileMovies)
       return {
         ...state,
         profileMovies: action.payload
@@ -50,6 +53,18 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
           state.profileMovies !== null
             ? state.profileMovies.filter(movie => movie.id !== action.payload)
             : null
+      };
+    case ADD_FILTER_TO_MOVIE:
+      return {
+        ...state,
+        profileMovies: state.profileMovies?.map(movie => {
+          if (movie.id === action.payload.id) {
+            movie.ganres?.push(action.payload.ganre)
+            return movie;
+          } else {
+            return movie;
+          }
+        })
       };
     case IS_LOADING:
       return {
@@ -65,6 +80,13 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
       return {
         ...state,
         currentNumberPagination: action.payload
+      };
+    case ADD_FILTER:
+      return {
+        ...state,
+        filters: Array.isArray(action.payload)
+          ? [...action.payload, ...state.filters]
+          : [action.payload, ...state.filters]
       };
     default: return state;
   }

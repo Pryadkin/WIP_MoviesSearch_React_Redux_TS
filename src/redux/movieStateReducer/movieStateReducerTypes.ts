@@ -14,6 +14,7 @@ export interface IFoundMoviesResults {
   vote_average: number
   overview: string
   release_date: string
+  ganres: Array<string> | null
 }
 
 export interface IFoundMoviesFullData {
@@ -29,10 +30,12 @@ export interface IMovieState {
   isLoading: boolean
   isWithPicture: boolean
   currentNumberPagination: number
+  filters: Array<string> | null
 };
 
 // parameters for router-dom`s history
 export interface IParams {
   movie: string
   page: string
+  id: string
 }

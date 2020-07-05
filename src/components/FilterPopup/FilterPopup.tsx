@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { filterPopupHandler, addFilter, addFilterToMovie } from '../../redux/actions';
 
 // styles
@@ -7,56 +7,42 @@ import { Form, Button, InputGroup, FormControl } from 'react-bootstrap';
 import styles from './FilterPopup.module.scss';
 
 // types
-import { IApplicationState } from '../../redux/rootReducerTypes';
+import { IFoundMoviesResults } from '../../redux/movieStateReducer/movieStateReducerTypes';
 export interface IFilterPopup {
   id: string
-}
+  filters: string[]
+  currentMovie: IFoundMoviesResults | undefined
+};
 
-
-
-const FilterPopup = ({ id }: IFilterPopup) => {
-  const filters = useSelector((state: IApplicationState) => state.movieStateReducer.filters);
-  const profileMovies = useSelector((state: IApplicationState) => state.movieStateReducer.profileMovies);
+const FilterPopup = ({ id, filters, currentMovie }: IFilterPopup) => {
   const dispatch = useDispatch();
   const [newGanre, setNewGenre] = useState(filters[0]);
+  const [currentGanresOfMovie, setCurrentGanresOfMovie] = useState('');
 
   const addGanreHandler = (e: React.MouseEvent) => {
     e.preventDefault();
-    profileMovies?.map(movie => {
-      if (movie.id === +id) {
-        if (!movie.genres?.includes(newGanre)) {
-          dispatch(addFilterToMovie(+id, newGanre));
-          alert("Genre added")
-        } else {
-          alert("Genre already exists")
-        }
-      }
-    })
-  }
+    if (!currentMovie?.genres?.includes(newGanre)) {
+      dispatch(addFilterToMovie(+id, newGanre));
+      alert("Genre added")
+    } else {
+      alert("Genre already exists")
+    }
+  };
 
-  const removeGanreHandler = (e: React.MouseEvent) => {
+  const removeGanreHandler = (e: any) => {
     e.preventDefault();
-    profileMovies?.map(movie => {
-      if (movie.id === +id) {
-        if (!movie.genres?.includes(newGanre)) {
-          dispatch(addFilterToMovie(+id, newGanre));
-          alert("Genre added")
-        } else {
-          alert("Genre already exists")
-        }
-      }
-    })
-  }
+    console.log(currentGanresOfMovie)
+  };
 
   const newGanreHandler = (e: React.MouseEvent) => {
     e.preventDefault();
     dispatch(addFilter(newGanre));
-  }
+  };
 
   const closeHandler = (e: React.MouseEvent) => {
     e.preventDefault();
     dispatch(filterPopupHandler())
-  }
+  };
 
   return (
     <div className={styles.container}>
@@ -112,17 +98,17 @@ const FilterPopup = ({ id }: IFilterPopup) => {
           <Form.Control
             as="select"
             className={styles.select}
+            // onChange={(e) => setCurrentGanresOfMovie(e.target: any)}
             custom
           >
-            {filters ?
-              filters.map((item, index) => {
+            {
+              currentMovie?.genres?.map((genre, index) => {
                 return (
                   <option key={index}>
-                    {item}
+                    {genre}
                   </option>
                 )
               })
-              : null
             }
           </Form.Control>
 
@@ -145,7 +131,7 @@ const FilterPopup = ({ id }: IFilterPopup) => {
           CLOSE
         </Button>
       </div>
-    </div>
+    </div >
   )
 }
 

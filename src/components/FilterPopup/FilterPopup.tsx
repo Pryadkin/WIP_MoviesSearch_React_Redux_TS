@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { filterPopupHandler, addFilter, addFilterToMovie } from '../../redux/actions';
+import { filterPopupHandler, addFilter, addFilterToMovie, removeGenreFromMovie } from '../../redux/actions';
 
 // styles
 import { Form, Button, InputGroup, FormControl } from 'react-bootstrap';
@@ -16,27 +16,41 @@ export interface IFilterPopup {
 
 const FilterPopup = ({ id, filters, currentMovie }: IFilterPopup) => {
   const dispatch = useDispatch();
-  const [newGanre, setNewGenre] = useState(filters[0]);
-  const [currentGanresOfMovie, setCurrentGanresOfMovie] = useState('');
+  const [newGenre, setNewGenre] = useState('');
+  const [currentGenresOfMovie, setCurrentGenresOfMovie] = useState('');
+  const [selectedGenreInAdd, setSelectedGenreInAdd] = useState(filters[0]);
 
-  const addGanreHandler = (e: React.MouseEvent) => {
+  useEffect(() => {
+    setSelectedGenreInAdd(filters[0]);
+  }, [filters])
+
+  const addGenreHandler = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!currentMovie?.genres?.includes(newGanre)) {
-      dispatch(addFilterToMovie(+id, newGanre));
+    if (!currentMovie?.genres?.includes(selectedGenreInAdd)) {
+      dispatch(addFilterToMovie(+id, selectedGenreInAdd));
       alert("Genre added")
     } else {
       alert("Genre already exists")
     }
   };
 
-  const removeGanreHandler = (e: any) => {
+  const removeGenreHandler = (e: React.MouseEvent) => {
     e.preventDefault();
-    console.log(currentGanresOfMovie)
+    console.log(currentGenresOfMovie)
+    dispatch(removeGenreFromMovie(+id, currentGenresOfMovie));
   };
 
-  const newGanreHandler = (e: React.MouseEvent) => {
+  const newGenreChangeHandler = (e: any) => {
+    setNewGenre(e.target.value);
+  }
+
+  const newGenreClickHandler = (e: React.MouseEvent) => {
     e.preventDefault();
-    dispatch(addFilter(newGanre));
+    if (newGenre) {
+      dispatch(addFilter(newGenre));
+    } else {
+      alert('Enter genre name')
+    }
   };
 
   const closeHandler = (e: React.MouseEvent) => {
@@ -49,16 +63,16 @@ const FilterPopup = ({ id, filters, currentMovie }: IFilterPopup) => {
       <div className={styles.content}>
         <InputGroup className="mb-2">
           <FormControl
-            placeholder="new ganre"
-            onChange={(e) => setNewGenre(e.target.value)}
-            value={newGanre}
+            placeholder="new genre"
+            onChange={newGenreChangeHandler}
+            value={newGenre}
           />
 
           <InputGroup.Append>
             <Button
               variant="primary"
               className={[styles.popup_btn, styles.btn_new].join(' ')}
-              onClick={newGanreHandler}
+              onClick={newGenreClickHandler}
             >
               NEW
             </Button>
@@ -69,12 +83,16 @@ const FilterPopup = ({ id, filters, currentMovie }: IFilterPopup) => {
           <Form.Control
             as="select"
             className={styles.select}
+            onChange={e => setSelectedGenreInAdd(e.target.value)}
             custom
           >
             {filters ?
               filters.map((item, index) => {
                 return (
-                  <option key={index}>
+                  <option
+                    key={index}
+                    value={item}
+                  >
                     {item}
                   </option>
                 )
@@ -87,7 +105,7 @@ const FilterPopup = ({ id, filters, currentMovie }: IFilterPopup) => {
             <Button
               variant="primary"
               className={styles.popup_btn}
-              onClick={addGanreHandler}
+              onClick={addGenreHandler}
             >
               ADD
           </Button>
@@ -98,13 +116,16 @@ const FilterPopup = ({ id, filters, currentMovie }: IFilterPopup) => {
           <Form.Control
             as="select"
             className={styles.select}
-            // onChange={(e) => setCurrentGanresOfMovie(e.target: any)}
+            onChange={e => console.log(e.target.value)}
             custom
           >
             {
               currentMovie?.genres?.map((genre, index) => {
                 return (
-                  <option key={index}>
+                  <option
+                    key={index}
+                    value={genre}
+                  >
                     {genre}
                   </option>
                 )
@@ -116,7 +137,7 @@ const FilterPopup = ({ id, filters, currentMovie }: IFilterPopup) => {
             <Button
               variant="primary"
               className={styles.popup_btn}
-              onClick={removeGanreHandler}
+              onClick={removeGenreHandler}
             >
               REMOVE
           </Button>

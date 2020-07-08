@@ -11,7 +11,8 @@ import {
   IS_LOADING,
   SET_NUMBER_PAGINATION,
   ADD_FILTER,
-  ADD_FILTER_TO_MOVIE
+  ADD_FILTER_TO_MOVIE,
+  REMOVE_GENRE_FROM_MOVIE
 } from '../actions';
 
 const initialState = {
@@ -59,8 +60,20 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
         ...state,
         profileMovies: state.profileMovies?.map(movie => {
           if (movie.id === action.payload.id) {
-            movie.genres?.push(action.payload.ganre)
+            movie.genres?.push(action.payload.genre)
             return movie;
+          } else {
+            return movie;
+          }
+        })
+      };
+    case REMOVE_GENRE_FROM_MOVIE:
+      console.log(action)
+      return {
+        ...state,
+        profileMovies: state.profileMovies?.map(movie => {
+          if (movie.id === action.payload.id) {
+            return movie.genres?.filter(genre => genre !== action.payload.genre);
           } else {
             return movie;
           }

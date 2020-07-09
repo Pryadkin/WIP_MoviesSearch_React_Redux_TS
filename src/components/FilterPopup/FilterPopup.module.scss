@@ -3,16 +3,39 @@
   top: 0;
   right: 0;
   width: 320px;
-  height: 200px;
+  height: 350px;
   display: flex;
   flex-direction: column;
   background-color: white;
   border: 2px solid #80808038;
   border-radius: 5px;  
+  z-index: 1000;
 }
 
 .content {
   margin: 10px 5px;
+}
+
+.all_genres {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.all_genres_label {
+  font-size: 20px;
+  margin: 0;
+  padding-right: 20px;
+}
+
+.select {
+  margin-bottom: 10px;
+}
+
+.popup_btn_all_genres {
+  display: flex;
+  justify-content: space-between;
 }
 
 // .select, .text {  

@@ -18,6 +18,7 @@ export const ADD_FILTER = "ADD_FILTER";
 export const FILTER_POPUP_HANDLER = "FILTER_POPUP_HANDLER";
 export const ADD_FILTER_TO_MOVIE = "ADD_FILTER_TO_MOVIE";
 export const REMOVE_GENRE_FROM_MOVIE = "REMOVE_GENRE_FROM_MOVIE";
+export const REMOVE_GENRE_FROM_ALL_GENRES = "REMOVE_GENRE_FROM_ALL_GENRES";
 
 export const searchMovie = (fetchMovies: IFoundMoviesResults) => ({
   type: SEARCH_MOVIE,
@@ -78,6 +79,11 @@ export const addFilterToMovie = (id: number, genre: string) => ({
 export const removeGenreFromMovie = (id: number, genre: string) => ({
   type: REMOVE_GENRE_FROM_MOVIE,
   payload: { id, genre }
+});
+
+export const removeGenreFromAllGenres = (genre: string) => ({
+  type: REMOVE_GENRE_FROM_ALL_GENRES,
+  payload: genre
 });
 
 export const fetchMovie = (nameMovie: string, isWithPicture: boolean, page: string) => {

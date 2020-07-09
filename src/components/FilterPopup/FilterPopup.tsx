@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { filterPopupHandler, addFilter, addFilterToMovie, removeGenreFromMovie } from '../../redux/actions';
+import {
+  filterPopupHandler,
+  addFilter,
+  addFilterToMovie,
+  removeGenreFromMovie,
+  removeGenreFromAllGenres
+} from '../../redux/actions';
 
 // styles
 import { Form, Button, InputGroup, FormControl } from 'react-bootstrap';
@@ -17,18 +23,23 @@ export interface IFilterPopup {
 const FilterPopup = ({ id, filters, currentMovie }: IFilterPopup) => {
   const dispatch = useDispatch();
   const [newGenre, setNewGenre] = useState('');
-  const [currentGenresOfMovie, setCurrentGenresOfMovie] = useState('');
-  const [selectedGenreInAdd, setSelectedGenreInAdd] = useState(filters[0]);
+  const [selectedGenreInAllGenres, setSelectedGenreInAllGenres] = useState('');
+  const [selectedGenreInGenresOfMovie, setSelectedGenreInGenresOfMovie] = useState('');
+
+  // for proper operation of useEffect
+  const currentMovieGenres = currentMovie?.genres;
 
   useEffect(() => {
-    setSelectedGenreInAdd(filters[0]);
-  }, [filters])
+    console.log(filters)
+    // filters[0] and currentMovie.genres[0] in "useState" to help use genre without click on select element
+    setSelectedGenreInAllGenres(filters[0]);
+    currentMovieGenres && setSelectedGenreInGenresOfMovie(currentMovieGenres[0]);
+  }, [currentMovieGenres, filters])
 
   const addGenreHandler = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!currentMovie?.genres?.includes(selectedGenreInAdd)) {
-      dispatch(addFilterToMovie(+id, selectedGenreInAdd));
-      alert("Genre added")
+    if (!currentMovie?.genres?.includes(selectedGenreInAllGenres)) {
+      dispatch(addFilterToMovie(+id, selectedGenreInAllGenres));
     } else {
       alert("Genre already exists")
     }
@@ -36,8 +47,12 @@ const FilterPopup = ({ id, filters, currentMovie }: IFilterPopup) => {
 
   const removeGenreHandler = (e: React.MouseEvent) => {
     e.preventDefault();
-    console.log(currentGenresOfMovie)
-    dispatch(removeGenreFromMovie(+id, currentGenresOfMovie));
+    dispatch(removeGenreFromMovie(+id, selectedGenreInGenresOfMovie));
+  };
+
+  const removeGenreFromAllGenresHandler = (e: React.MouseEvent) => {
+    e.preventDefault();
+    dispatch(removeGenreFromAllGenres(selectedGenreInAllGenres));
   };
 
   const newGenreChangeHandler = (e: any) => {
@@ -74,16 +89,24 @@ const FilterPopup = ({ id, filters, currentMovie }: IFilterPopup) => {
               className={[styles.popup_btn, styles.btn_new].join(' ')}
               onClick={newGenreClickHandler}
             >
-              NEW
+              New genre
             </Button>
           </InputGroup.Append>
         </InputGroup>
 
-        <InputGroup className="mb-2">
+        <InputGroup className={styles.all_genres}>
+          <Form.Label
+            htmlFor='allgenres'
+            className={styles.all_genres_label}
+          >
+            All genres
+          </Form.Label>
+
           <Form.Control
             as="select"
+            id="allgenres"
             className={styles.select}
-            onChange={e => setSelectedGenreInAdd(e.target.value)}
+            onChange={e => setSelectedGenreInAllGenres(e.target.value)}
             custom
           >
             {filters ?
@@ -101,22 +124,41 @@ const FilterPopup = ({ id, filters, currentMovie }: IFilterPopup) => {
             }
           </Form.Control>
 
-          <InputGroup.Append>
+          <InputGroup.Append className={styles.popup_btn_all_genres}>
             <Button
               variant="primary"
               className={styles.popup_btn}
               onClick={addGenreHandler}
             >
-              ADD
+              Add to movie
+          </Button>
+
+            <Button
+              variant="primary"
+              className={styles.popup_btn}
+              onClick={removeGenreFromAllGenresHandler}
+            >
+              Remove from genres
           </Button>
           </InputGroup.Append>
         </InputGroup>
 
-        <InputGroup className="mb-2">
+        <InputGroup className={styles.all_genres}>
+          <Form.Label
+            htmlFor='genresthismovie'
+            className={styles.all_genres_label}
+          >
+            Genres of movie
+          </Form.Label>
+
           <Form.Control
             as="select"
+            id="genresthismovie"
             className={styles.select}
-            onChange={e => console.log(e.target.value)}
+            onChange={e => {
+              console.log(e.target.value);
+              setSelectedGenreInGenresOfMovie(e.target.value)
+            }}
             custom
           >
             {
@@ -139,7 +181,7 @@ const FilterPopup = ({ id, filters, currentMovie }: IFilterPopup) => {
               className={styles.popup_btn}
               onClick={removeGenreHandler}
             >
-              REMOVE
+              Remove from movie
           </Button>
           </InputGroup.Append>
         </InputGroup>

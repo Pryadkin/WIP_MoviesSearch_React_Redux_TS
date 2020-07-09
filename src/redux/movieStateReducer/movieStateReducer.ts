@@ -12,7 +12,8 @@ import {
   SET_NUMBER_PAGINATION,
   ADD_FILTER,
   ADD_FILTER_TO_MOVIE,
-  REMOVE_GENRE_FROM_MOVIE
+  REMOVE_GENRE_FROM_MOVIE,
+  REMOVE_GENRE_FROM_ALL_GENRES
 } from '../actions';
 
 const initialState = {
@@ -58,26 +59,12 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
     case ADD_FILTER_TO_MOVIE:
       return {
         ...state,
-        profileMovies: state.profileMovies?.map(movie => {
-          if (movie.id === action.payload.id) {
-            movie.genres?.push(action.payload.genre)
-            return movie;
-          } else {
-            return movie;
-          }
-        })
+        profileMovies: addFilterToMovie()
       };
     case REMOVE_GENRE_FROM_MOVIE:
-      console.log(action)
       return {
         ...state,
-        profileMovies: state.profileMovies?.map(movie => {
-          if (movie.id === action.payload.id) {
-            return movie.genres?.filter(genre => genre !== action.payload.genre);
-          } else {
-            return movie;
-          }
-        })
+        profileMovies: removeGenreFromMovie()
       };
     case IS_LOADING:
       return {
@@ -101,6 +88,41 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
           ? [...action.payload, ...state.filters]
           : [action.payload, ...state.filters]
       };
+    case REMOVE_GENRE_FROM_ALL_GENRES:
+      // console.log(state.filters)
+      // debugger
+      return {
+        ...state,
+        filters:
+          state.filters.length > 1
+            ? state.filters.filter(genre => genre !== action.payload)
+            : []
+      };
     default: return state;
+  };
+
+  function addFilterToMovie() {
+    return state.profileMovies?.map(movie => {
+      if (movie.id === action.payload.id) {
+        movie.genres?.unshift(action.payload.genre)
+        return movie;
+      } else {
+        return movie;
+      }
+    })
+  };
+
+  function removeGenreFromMovie() {
+    return state.profileMovies?.map(movie => {
+      if (movie.id === action.payload.id) {
+        if (movie.genres) {
+          movie.genres = movie.genres?.filter(genre => genre !== action.payload.genre);
+        }
+        return movie;
+      } else {
+        return movie;
+      }
+    })
   }
 };
+

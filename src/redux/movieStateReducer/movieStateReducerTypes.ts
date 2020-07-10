@@ -27,6 +27,7 @@ export interface IFoundMoviesFullData {
 export interface IMovieState {
   foundMovies: IFoundMoviesFullData | null
   profileMovies: Array<IFoundMoviesResults> | null
+  stackProfileMovies: Array<IFoundMoviesResults> | null
   isLoading: boolean
   isWithPicture: boolean
   currentNumberPagination: number

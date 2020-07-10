@@ -12,10 +12,10 @@ import ProfilePage from './pages/ProfilePage/ProfilePage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // types
-import { IAppProps, IApplicationState } from './redux/rootReducerTypes';
+import { IApplicationState } from './redux/rootReducerTypes';
 import { IFoundMoviesResults } from './redux/movieStateReducer/movieStateReducerTypes';
 
-const App: React.FC<IAppProps> = () => {
+const App: React.FC = () => {
   const dispatch = useDispatch();
   const profileMovies = useSelector((state: IApplicationState) => state.movieStateReducer.profileMovies);
   const removeFromLocalStorage = useSelector((state: IApplicationState) => state.movieStateReducer.removeFromLocalStorage);

@@ -13,13 +13,15 @@ import {
   ADD_FILTER,
   ADD_FILTER_TO_MOVIE,
   REMOVE_GENRE_FROM_MOVIE,
-  REMOVE_GENRE_FROM_ALL_GENRES
+  REMOVE_GENRE_FROM_ALL_GENRES,
+  FILTER_MOVIE_PROFILE
 } from '../actions';
 
 const initialState = {
   foundMovies: null,
   isWithPicture: true,
   profileMovies: [],
+  stackProfileMovies: [],
   isLoading: false,
   currentNumberPagination: 1,
   filters: [],
@@ -42,21 +44,29 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
       action.payload.genres = []; // adding genres proporty to profileMovies
       return {
         ...state,
-        profileMovies: [action.payload, ...state.profileMovies]
+        profileMovies: [action.payload, ...state.profileMovies],
+        stackProfileMovies: [action.payload, ...state.profileMovies]
       };
     case ADD_MOVIE_TO_PROFILE_FROM_LOCAL_STORAGE:
       return {
         ...state,
-        profileMovies: action.payload
-      }
-    case REMOVE_MOVIE:
+        profileMovies: action.payload,
+        stackProfileMovies: action.payload,
+      };
+    case FILTER_MOVIE_PROFILE:
       return {
         ...state,
         profileMovies:
-          state.profileMovies !== null
-            ? state.profileMovies.filter(movie => movie.id !== action.payload)
-            : null,
-        removeFromLocalStorage: !state.removeFromLocalStorage,
+          action.payload === 'all'
+            ? state.stackProfileMovies
+            : state.stackProfileMovies?.filter(movie => movie.genres?.includes(action.payload))
+      };
+    case REMOVE_MOVIE:
+      return {
+        ...state,
+        profileMovies: state.profileMovies?.filter(movie => movie.id !== action.payload),
+        stackProfileMovies: state.profileMovies?.filter(movie => movie.id !== action.payload),
+        removeFromLocalStorage: true,
       };
     case ADD_FILTER_TO_MOVIE:
       return {
@@ -94,7 +104,7 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
       return {
         ...state,
         filters: state.filters.filter(genre => genre !== action.payload),
-        removeFromLocalStorage: !state.removeFromLocalStorage,
+        removeFromLocalStorage: true,
       };
     default: return state;
   };

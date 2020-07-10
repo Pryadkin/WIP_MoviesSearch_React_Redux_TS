@@ -18,6 +18,7 @@ import { IFoundMoviesResults } from './redux/movieStateReducer/movieStateReducer
 const App: React.FC<IAppProps> = () => {
   const dispatch = useDispatch();
   const profileMovies = useSelector((state: IApplicationState) => state.movieStateReducer.profileMovies);
+  const removeFromLocalStorage = useSelector((state: IApplicationState) => state.movieStateReducer.removeFromLocalStorage);
   const filters = useSelector((state: IApplicationState) => state.movieStateReducer.filters);
 
   const setDataToLocalStorage = useCallback((
@@ -25,7 +26,11 @@ const App: React.FC<IAppProps> = () => {
     name: string,
     action: (name: Array<string> | string) => { type: string; payload: string | string[]; }
   ) => {
-    if (data && data.length === 0) {
+
+    // removeFromLocalStorage - resolve us to remove element 
+    // from redux-store and don't loader element from localStorage. 
+    // Used to remove the last element from an array.
+    if (data && data.length === 0 && !removeFromLocalStorage) {
 
       const filtersJSON = localStorage.getItem(name);
 
@@ -39,7 +44,7 @@ const App: React.FC<IAppProps> = () => {
       localStorage.setItem(name, JSON.stringify(data));
 
     }
-  }, [dispatch])
+  }, [dispatch, removeFromLocalStorage])
 
   useEffect(() => {
     setDataToLocalStorage(filters, 'filters', addFilter);

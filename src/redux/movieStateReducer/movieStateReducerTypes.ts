@@ -31,6 +31,7 @@ export interface IMovieState {
   isWithPicture: boolean
   currentNumberPagination: number
   filters: Array<string>
+  removeFromLocalStorage: boolean
 };
 
 // parameters for router-dom`s history

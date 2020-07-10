@@ -30,7 +30,6 @@ const FilterPopup = ({ id, filters, currentMovie }: IFilterPopup) => {
   const currentMovieGenres = currentMovie?.genres;
 
   useEffect(() => {
-    console.log(filters)
     // filters[0] and currentMovie.genres[0] in "useState" to help use genre without click on select element
     setSelectedGenreInAllGenres(filters[0]);
     currentMovieGenres && setSelectedGenreInGenresOfMovie(currentMovieGenres[0]);
@@ -187,7 +186,7 @@ const FilterPopup = ({ id, filters, currentMovie }: IFilterPopup) => {
         </InputGroup>
 
         <Button
-          variant="primary"
+          variant="danger"
           className={styles.btn_close}
           onClick={closeHandler}
         >

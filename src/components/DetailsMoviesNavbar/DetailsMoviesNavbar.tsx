@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { filterPopupHandler } from '../../redux/actions';
 
 // components
-import FilterPopup from '../FilterPopup/FilterPopup';
+import FilterPopup from '../FilterPopup/Container';
 
 // styles
 import styles from './DetailsMoviesNavbar.module.scss';

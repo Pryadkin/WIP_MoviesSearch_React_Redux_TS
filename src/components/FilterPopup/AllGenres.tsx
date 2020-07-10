@@ -4,8 +4,8 @@ import React from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import styles from './Container.module.scss';
 interface IAllGenres {
-  onChangeHandler: (e: any) => void
-  addGenreHandler: (e: any) => void
+  onChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void
+  addGenreHandler: (e: React.MouseEvent) => void
   removeGenreFromAllGenresHandler: (e: any) => void
   filters: string[]
 }

@@ -4,7 +4,7 @@ import React from 'react';
 import { Button, InputGroup, FormControl } from 'react-bootstrap';
 import styles from './Container.module.scss';
 interface IAddNewGenre {
-  newGenreChangeHandler: (e: any) => void
+  newGenreChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void
   newGenreClickHandler: (e: React.MouseEvent) => void
   newGenre: string
 }

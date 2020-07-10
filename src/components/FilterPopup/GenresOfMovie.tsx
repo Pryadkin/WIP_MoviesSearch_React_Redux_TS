@@ -5,7 +5,7 @@ import { Form, Button, InputGroup } from 'react-bootstrap';
 import styles from './Container.module.scss';
 import { IFoundMoviesResults } from '../../redux/movieStateReducer/movieStateReducerTypes';
 interface IGenresOfMovie {
-  onChangeHandler: (e: any) => void
+  onChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void
   removeGenreHandler: (e: React.MouseEvent) => void
   currentMovie: IFoundMoviesResults | undefined
 }

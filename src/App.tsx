@@ -1,7 +1,11 @@
 import React, { useEffect, useCallback } from 'react';
 import { BrowserRouter as Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { addMovieToProfileFromLocalStorage, addFilter } from './redux/actions';
+import {
+  addMovieToProfileFromLocalStorage,
+  fetchTrendingMoviesAction,
+  addFilter
+} from './redux/actions';
 
 // components
 import SearchFilmsPage from './pages/SearchFilmsPage/SearchFilmsPage';
@@ -18,6 +22,7 @@ import { IFoundMoviesResults } from './redux/movieStateReducer/movieStateReducer
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const profileMovies = useSelector((state: IApplicationState) => state.movieStateReducer.profileMovies);
+  const trendingMovies = useSelector((state: IApplicationState) => state.movieStateReducer.trendingMovies);
   const removeFromLocalStorage = useSelector((state: IApplicationState) => state.movieStateReducer.removeFromLocalStorage);
   const filters = useSelector((state: IApplicationState) => state.movieStateReducer.filters);
 
@@ -49,6 +54,7 @@ const App: React.FC = () => {
   useEffect(() => {
     setDataToLocalStorage(filters, 'filters', addFilter);
     setDataToLocalStorage(profileMovies, 'profileMovies', addMovieToProfileFromLocalStorage);
+    dispatch(fetchTrendingMoviesAction());
   }, [profileMovies, filters, dispatch, setDataToLocalStorage])
 
   return (

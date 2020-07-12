@@ -3,6 +3,7 @@ import { IMovieState } from './movieStateReducerTypes';
 
 import {
   SEARCH_MOVIE,
+  SEARCH_TRENDING_MOVIE,
   IS_WITH_PICTURE,
   CLEAN_PROFILE_MOVIES,
   ADD_MOVIE_TO_PROFILE,
@@ -19,6 +20,7 @@ import {
 
 const initialState = {
   foundMovies: null,
+  trendingMovies: null,
   isWithPicture: true,
   profileMovies: [],
   stackProfileMovies: [],
@@ -34,6 +36,11 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
       return {
         ...state,
         foundMovies: action.payload
+      };
+    case SEARCH_TRENDING_MOVIE:
+      return {
+        ...state,
+        trendingMovies: action.payload
       };
     case CLEAN_PROFILE_MOVIES:
       return {

@@ -1,5 +1,6 @@
 import { fetchMovies } from '../api/fetchMovies';
 import { fetchDetails } from '../api/fetchDetails';
+import { fetchTrendingMovies } from '../api/fetchTrendingMovies';
 import { IFoundMoviesResults } from './movieStateReducer/movieStateReducerTypes';
 
 export const ADD_DETAILS = "ADD_DETAILS";
@@ -20,9 +21,15 @@ export const ADD_FILTER_TO_MOVIE = "ADD_FILTER_TO_MOVIE";
 export const REMOVE_GENRE_FROM_MOVIE = "REMOVE_GENRE_FROM_MOVIE";
 export const REMOVE_GENRE_FROM_ALL_GENRES = "REMOVE_GENRE_FROM_ALL_GENRES";
 export const FILTER_MOVIE_PROFILE = "FILTER_MOVIE_PROFILE";
+export const SEARCH_TRENDING_MOVIE = "SEARCH_TRENDING_MOVIE";
 
 export const searchMovie = (fetchMovies: IFoundMoviesResults) => ({
   type: SEARCH_MOVIE,
+  payload: fetchMovies
+});
+
+export const searchTrendingMovie = (fetchMovies: IFoundMoviesResults) => ({
+  type: SEARCH_TRENDING_MOVIE,
   payload: fetchMovies
 });
 
@@ -94,11 +101,18 @@ export const filterMovieProfile = (genre: string) => ({
 
 export const fetchMovie = (nameMovie: string, isWithPicture: boolean, page: string) => {
   return async (dispatch: any) => {
-    console.log('fetchMovie')
     // dispatch(isLoading());
     const foundMovies = await fetchMovies(nameMovie, isWithPicture, page);
     dispatch(searchMovie(foundMovies));
     // dispatch(isLoading());
+  };
+};
+
+export const fetchTrendingMoviesAction = () => {
+  return async (dispatch: any) => {
+    console.log('fetchTrendingMovies')
+    const foundMovies = await fetchTrendingMovies();
+    dispatch(searchTrendingMovie(foundMovies));
   };
 };
 

@@ -25,6 +25,7 @@ export const ProfilePage = () => {
   return (
     <>
       <ProfileNavbar />
+
       <CardsMoviesOfProfile movies={profileMovies} />
     </>
   )

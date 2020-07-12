@@ -26,6 +26,7 @@ export interface IFoundMoviesFullData {
 
 export interface IMovieState {
   foundMovies: IFoundMoviesFullData | null
+  trendingMovies: IFoundMoviesFullData | null
   profileMovies: Array<IFoundMoviesResults> | null
   stackProfileMovies: Array<IFoundMoviesResults> | null
   isLoading: boolean

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { filterPopupHandler } from '../../redux/actions';
+import { filterPopupHandler } from '../../../redux/actions';
 
 // components
-import FilterPopup from '../FilterPopup/Container';
+import FilterPopup from '../../FilterPopup/Container';
 
 // styles
 import styles from './DetailsMoviesNavbar.module.scss';
@@ -16,8 +16,8 @@ import {
 } from 'react-bootstrap';
 
 // types
-import { IParams, IFoundMoviesResults } from '../../redux/movieStateReducer/movieStateReducerTypes';
-import { IApplicationState } from '../../redux/rootReducerTypes';
+import { IParams, IFoundMoviesResults } from '../../../redux/movieStateReducer/movieStateReducerTypes';
+import { IApplicationState } from '../../../redux/rootReducerTypes';
 
 const DetailsMoviesNavbar = () => {
   const history = useHistory();

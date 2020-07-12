@@ -9,7 +9,7 @@ import getStyledBudget from './helpers/getStyledBudget';
 import dollarIcon from '../../img/icons/dollarIcon.png';
 
 // components
-import DetailsMoviesNavbar from '../../components/DetailsMoviesNavbar/DetailsMoviesNavbar';
+import DetailsMoviesNavbar from '../../components/Navbar/DetailsMoviesNavbar/DetailsMoviesNavbar';
 
 // styles
 import { Container, Row, Col, Image, Button } from 'react-bootstrap';

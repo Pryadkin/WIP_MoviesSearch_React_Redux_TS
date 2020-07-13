@@ -2,6 +2,24 @@ import { fetchMovies } from '../api/fetchMovies';
 import { fetchDetails } from '../api/fetchDetails';
 import { fetchTrendingMovies } from '../api/fetchTrendingMovies';
 import { IFoundMoviesResults } from './movieStateReducer/movieStateReducerTypes';
+import {
+  TSearchMovie,
+  TSearchTrendingMovie,
+  TSetPicture,
+  TIsLoading,
+  TAddMovieToProfile,
+  TAddMovieToProfileFromLocalStorage,
+  TRemoveMovie,
+  TSetNumberPagination,
+  TAddDetails,
+  TCleanDetails,
+  TAddFilter,
+  TFilterPopupHandler,
+  TAddFilterToMovie,
+  TRemoveGenreFromMovie,
+  TRemoveGenreFromAllGenres,
+  TFilterMovieProfile
+} from './actionsTypes';
 
 export const ADD_DETAILS = "ADD_DETAILS";
 export const CLEAN_DETAILS = "CLEAN_DETAILS";
@@ -23,78 +41,78 @@ export const REMOVE_GENRE_FROM_ALL_GENRES = "REMOVE_GENRE_FROM_ALL_GENRES";
 export const FILTER_MOVIE_PROFILE = "FILTER_MOVIE_PROFILE";
 export const SEARCH_TRENDING_MOVIE = "SEARCH_TRENDING_MOVIE";
 
-export const searchMovie = (fetchMovies: IFoundMoviesResults) => ({
+export const searchMovie = (fetchMovies: IFoundMoviesResults): TSearchMovie => ({
   type: SEARCH_MOVIE,
   payload: fetchMovies
 });
 
-export const searchTrendingMovie = (fetchMovies: IFoundMoviesResults) => ({
+export const searchTrendingMovie = (fetchMovies: IFoundMoviesResults): TSearchTrendingMovie => ({
   type: SEARCH_TRENDING_MOVIE,
   payload: fetchMovies
 });
 
-export const setPicture = () => ({
-  type: IS_WITH_PICTURE
+export const setPicture = (): TSetPicture => ({
+  type: IS_WITH_PICTURE,
 });
 
-export const isLoading = () => ({
+export const isLoading = (): TIsLoading => ({
   type: IS_LOADING
 });
 
-export const addMovieToProfile = (movie: IFoundMoviesResults | any) => ({  // Because find method can return undefined
+export const addMovieToProfile = (movie: IFoundMoviesResults | any): TAddMovieToProfile => ({  // Because find method can return undefined
   type: ADD_MOVIE_TO_PROFILE,
   payload: movie
 });
 
-export const addMovieToProfileFromLocalStorage = (movie: IFoundMoviesResults | any) => ({
+export const addMovieToProfileFromLocalStorage = (movie: IFoundMoviesResults | any): TAddMovieToProfileFromLocalStorage => ({
   type: ADD_MOVIE_TO_PROFILE_FROM_LOCAL_STORAGE,
   payload: movie
 });
 
-export const removeMovie = (id: number) => ({
+export const removeMovie = (id: number): TRemoveMovie => ({
   type: REMOVE_MOVIE,
   payload: id
 });
 
-export const setNumberPagination = (numberPagination: number) => ({
+export const setNumberPagination = (numberPagination: number): TSetNumberPagination => ({
   type: SET_NUMBER_PAGINATION,
   payload: numberPagination
 });
 
-export const addDetails = (details: IFoundMoviesResults[] | IFoundMoviesResults | undefined) => ({
+export const addDetails = (details: IFoundMoviesResults[] | IFoundMoviesResults | undefined): TAddDetails => ({
   type: ADD_DETAILS,
   payload: details
 });
 
-export const cleanDetails = () => ({
+export const cleanDetails = (): TCleanDetails => ({
   type: CLEAN_DETAILS
 });
 
-export const addFilter = (name: Array<string> | string) => ({
+export const addFilter = (name: Array<string> | string): TAddFilter => ({
   type: ADD_FILTER,
   payload: name
 });
 
-export const filterPopupHandler = () => ({
+export const filterPopupHandler = (): TFilterPopupHandler => ({
   type: FILTER_POPUP_HANDLER
 });
 
-export const addFilterToMovie = (id: number, genre: string) => ({
+export const addFilterToMovie = (id: number, genre: string): TAddFilterToMovie => ({
   type: ADD_FILTER_TO_MOVIE,
   payload: { id, genre }
 });
 
-export const removeGenreFromMovie = (id: number, genre: string) => ({
+export const removeGenreFromMovie = (id: number, genre: string): TRemoveGenreFromMovie => ({
   type: REMOVE_GENRE_FROM_MOVIE,
   payload: { id, genre }
 });
 
-export const removeGenreFromAllGenres = (genre: string) => ({
+export const removeGenreFromAllGenres = (genre: string): TRemoveGenreFromAllGenres => ({
   type: REMOVE_GENRE_FROM_ALL_GENRES,
   payload: genre
 });
 
-export const filterMovieProfile = (genre: string) => ({
+export const filterMovieProfile = (genre: string): TFilterMovieProfile => ({
   type: FILTER_MOVIE_PROFILE,
   payload: genre
 });

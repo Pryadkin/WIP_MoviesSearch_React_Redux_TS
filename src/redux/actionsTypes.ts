@@ -26,6 +26,15 @@ export type TSearchMovie = {
   payload: IFoundMoviesResults
 };
 
+export type TSearchMovieAsinc = {
+  type: string
+  payload: {
+    name: string,
+    isWith: boolean,
+    page: string
+  }
+}
+
 export type TSearchTrendingMovie = {
   type: typeof SEARCH_TRENDING_MOVIE
   payload: IFoundMoviesResults

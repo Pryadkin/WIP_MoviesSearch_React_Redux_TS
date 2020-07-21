@@ -23,7 +23,7 @@ export const fetchTrendingMovies = async () => {
     let { results } = data;
 
     data.results = getFullPathForPosters(results);
-    console.log(data);
+    // console.log(data);
     return data;
 
   } catch (err) {

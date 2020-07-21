@@ -1,7 +1,7 @@
 import React, { useState, MouseEvent } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPicture, fetchMovie, setNumberPagination } from '../../../redux/actions';
+import { setPicture, searchMovieAsinc, setNumberPagination } from '../../../redux/actions';
 
 // styles
 import styles from "./SearchNavbar.module.scss";
@@ -27,11 +27,15 @@ const SearchNavbar = () => {
     dispatch(setPicture());
   }
 
+  // export const isLoading = (): TIsLoading => ({
+  //   type: IS_LOADING
+  // });
+
   const submitHandler = (e: MouseEvent) => {
     e.preventDefault();
     if (title) {
       history.push(`/search/${title}/1`);
-      dispatch(fetchMovie(title, true, '1'))
+      dispatch(searchMovieAsinc(title, true, '1'))
       dispatch(setNumberPagination(1));
       setTitle('');
     }

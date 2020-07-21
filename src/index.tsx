@@ -4,6 +4,8 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { rootReducer } from './redux/rootReducer';
 import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from './redux/sagas';
 
 // components
 import App from './App';
@@ -12,8 +14,6 @@ import App from './App';
 import './App.css';
 import './index.css';
 
-// const store = createStore(rootReducer, applyMiddleware(thunk));
-
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
@@ -21,11 +21,16 @@ declare global {
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(rootReducer, compose(
+  applyMiddleware(sagaMiddleware),
   applyMiddleware(thunk),
   composeEnhancers()
 ));
+
+sagaMiddleware.run(rootSaga);
+
 
 ReactDOM.render(
   <React.StrictMode>

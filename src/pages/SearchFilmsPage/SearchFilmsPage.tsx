@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetchMovie, cleanDetails } from '../../redux/actions';
+import { searchMovieAsinc, cleanDetails } from '../../redux/actions';
 
 // components
 import SearchNavbar from '../../components/Navbar/SearchNavbar/SearchNavbar';
@@ -25,7 +25,7 @@ const SearchFilmsPage = () => {
     // if open details movie and then closed it, dispatch doesn't executed
     if (movie) {
       if (detailsMovie.id === 0) {
-        dispatch(fetchMovie(movie, isWithPicture, page));
+        dispatch(searchMovieAsinc(movie, isWithPicture, page));
       } else {
         dispatch(cleanDetails());
       }

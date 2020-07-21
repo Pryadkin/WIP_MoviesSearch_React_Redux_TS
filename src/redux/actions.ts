@@ -1,9 +1,9 @@
-import { fetchMovies } from '../api/fetchMovies';
 import { fetchDetails } from '../api/fetchDetails';
 import { fetchTrendingMovies } from '../api/fetchTrendingMovies';
 import { IFoundMoviesResults } from './movieStateReducer/movieStateReducerTypes';
 import {
   TSearchMovie,
+  TSearchMovieAsinc,
   TSearchTrendingMovie,
   TSetPicture,
   TIsLoading,
@@ -27,6 +27,7 @@ export const ADD_MOVIE_TO_PROFILE = "ADD_MOVIE_TO_PROFILE";
 export const ADD_MOVIE_TO_PROFILE_FROM_LOCAL_STORAGE = "ADD_MOVIE_TO_PROFILE_FROM_LOCAL_STORAGE";
 export const REMOVE_MOVIE = "REMOVE_MOVIE";
 export const SEARCH_MOVIE = "SEARCH_MOVIE";
+export const SEARCH_MOVIE_ASINC = "SEARCH_MOVIE_ASINC";
 export const CLEAN_PROFILE_MOVIES = "CLEAN_PROFILE_MOVIES";
 export const IS_LOADING = "IS_LOADING";
 export const IS_WITH_PICTURE = "IS_WITH_PICTURE";
@@ -44,6 +45,11 @@ export const SEARCH_TRENDING_MOVIE = "SEARCH_TRENDING_MOVIE";
 export const searchMovie = (fetchMovies: IFoundMoviesResults): TSearchMovie => ({
   type: SEARCH_MOVIE,
   payload: fetchMovies
+});
+
+export const searchMovieAsinc = (name: string, isWith: boolean, page: string): TSearchMovieAsinc => ({
+  type: SEARCH_MOVIE_ASINC,
+  payload: { name, isWith, page }
 });
 
 export const searchTrendingMovie = (fetchMovies: IFoundMoviesResults): TSearchTrendingMovie => ({
@@ -116,15 +122,6 @@ export const filterMovieProfile = (genre: string): TFilterMovieProfile => ({
   type: FILTER_MOVIE_PROFILE,
   payload: genre
 });
-
-export const fetchMovie = (nameMovie: string, isWithPicture: boolean, page: string) => {
-  return async (dispatch: any) => {
-    // dispatch(isLoading());
-    const foundMovies = await fetchMovies(nameMovie, isWithPicture, page);
-    dispatch(searchMovie(foundMovies));
-    // dispatch(isLoading());
-  };
-};
 
 export const fetchTrendingMoviesAction = () => {
   return async (dispatch: any) => {

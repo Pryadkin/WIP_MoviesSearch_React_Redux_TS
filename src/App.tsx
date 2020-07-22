@@ -54,8 +54,6 @@ const App: React.FC = () => {
     setDataToLocalStorage(filters, 'filters', addFilter);
     setDataToLocalStorage(profileMovies, 'profileMovies', addMovieToProfileFromLocalStorage);
     dispatch(fetchTrendingMoviesAction());
-    // dispatch(saga(5));
-    // dispatch(saga('big', false, '2'));
   }, [profileMovies, filters, dispatch, setDataToLocalStorage])
 
   return (

@@ -7,6 +7,7 @@ import {
   ADD_MOVIE_TO_PROFILE,
   ADD_MOVIE_TO_PROFILE_FROM_LOCAL_STORAGE,
   ADD_DETAILS,
+  ADD_DETAILS_ASINC,
   CLEAN_DETAILS,
   REMOVE_MOVIE,
   IS_LOADING,
@@ -71,6 +72,11 @@ export type TSetNumberPagination = {
 export type TAddDetails = {
   type: typeof ADD_DETAILS
   payload: IFoundMoviesResults[] | IFoundMoviesResults | undefined
+};
+
+export type TAddDetailsAsinc = {
+  type: typeof ADD_DETAILS_ASINC
+  payload: number
 };
 
 export type TCleanDetails = {

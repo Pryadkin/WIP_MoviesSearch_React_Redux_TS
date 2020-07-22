@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDetailsMovie, addMovieToProfile, removeMovie } from '../../redux/actions';
+import { addDetailsAsinc, addMovieToProfile, removeMovie } from '../../redux/actions';
 import ReactStars from 'react-stars';
 import getStyledBudget from './helpers/getStyledBudget';
 
@@ -30,6 +30,11 @@ const DetailsMovie = () => {
   const [isBtnActive, setBtnActive] = useState(
     profileMovies ? profileMovies.find(movie => movie.id === +id) : false
   );
+
+  useEffect(() => {
+    dispatch(addDetailsAsinc(id));
+    setLoading(true);
+  }, [dispatch, id]);
 
   const addMovieHandler = () => {
     // find target movie from movies on search movies page
@@ -196,11 +201,6 @@ const DetailsMovie = () => {
       </Container >
     )
   };
-
-  useEffect(() => {
-    dispatch(getDetailsMovie(id));
-    setLoading(true);
-  }, [dispatch, id]);
 
   return (
     <>

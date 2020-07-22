@@ -1,4 +1,3 @@
-import { fetchDetails } from '../api/fetchDetails';
 import { fetchTrendingMovies } from '../api/fetchTrendingMovies';
 import { IFoundMoviesResults } from './movieStateReducer/movieStateReducerTypes';
 import {
@@ -12,6 +11,7 @@ import {
   TRemoveMovie,
   TSetNumberPagination,
   TAddDetails,
+  TAddDetailsAsinc,
   TCleanDetails,
   TAddFilter,
   TFilterPopupHandler,
@@ -22,6 +22,7 @@ import {
 } from './actionsTypes';
 
 export const ADD_DETAILS = "ADD_DETAILS";
+export const ADD_DETAILS_ASINC = "ADD_DETAILS_ASINC";
 export const CLEAN_DETAILS = "CLEAN_DETAILS";
 export const ADD_MOVIE_TO_PROFILE = "ADD_MOVIE_TO_PROFILE";
 export const ADD_MOVIE_TO_PROFILE_FROM_LOCAL_STORAGE = "ADD_MOVIE_TO_PROFILE_FROM_LOCAL_STORAGE";
@@ -90,6 +91,11 @@ export const addDetails = (details: IFoundMoviesResults[] | IFoundMoviesResults 
   payload: details
 });
 
+export const addDetailsAsinc = (id: number): TAddDetailsAsinc => ({
+  type: ADD_DETAILS_ASINC,
+  payload: id
+});
+
 export const cleanDetails = (): TCleanDetails => ({
   type: CLEAN_DETAILS
 });
@@ -125,15 +131,7 @@ export const filterMovieProfile = (genre: string): TFilterMovieProfile => ({
 
 export const fetchTrendingMoviesAction = () => {
   return async (dispatch: any) => {
-    console.log('fetchTrendingMovies')
     const foundMovies = await fetchTrendingMovies();
     dispatch(searchTrendingMovie(foundMovies));
   };
-};
-
-export const getDetailsMovie = (id: number) => {
-  return async (dispatch: any) => {
-    const details = await fetchDetails(id);
-    dispatch(addDetails(details));
-  }
 };

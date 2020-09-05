@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addDetailsAsinc, addMovieToProfile, removeMovie } from '../../redux/actions';
@@ -10,6 +10,7 @@ import dollarIcon from '../../img/icons/dollarIcon.png';
 
 // components
 import DetailsMoviesNavbar from '../../components/Navbar/DetailsMoviesNavbar/DetailsMoviesNavbar';
+import FilterPopup from '../../components/FilterPopup/FilterPopupContainerNew_2';
 
 // styles
 import { Container, Row, Col, Image, Button } from 'react-bootstrap';
@@ -18,6 +19,7 @@ import cx from 'classnames';
 
 // types
 import { IApplicationState } from '../../redux/rootReducerTypes';
+import { IFoundMoviesResults } from '../../redux/movieStateReducer/movieStateReducerTypes';
 
 const DetailsMovie = () => {
   const { page, id } = useParams();
@@ -25,11 +27,26 @@ const DetailsMovie = () => {
   const dispatch = useDispatch();
   const detailsMovie = useSelector((state: IApplicationState) => state.detailsMovieReducer.detailsMovie);
   const foundMovies = useSelector((state: IApplicationState) => state.movieStateReducer.foundMovies);
+  const filterPopup = useSelector((state: IApplicationState) => state.detailsMovieReducer.filterPopup);
+  const filtration = useSelector((state: IApplicationState) => state.filtrationReducer.filtration);
   const profileMovies = useSelector((state: IApplicationState) => state.movieStateReducer.profileMovies);
   const [isLoading, setLoading] = useState(false);
   const [isBtnActive, setBtnActive] = useState(
     profileMovies ? profileMovies.find(movie => movie.id === +id) : false
   );
+  const [currentMovie, setCurrentMovie] = useState<IFoundMoviesResults>();
+
+  const getCurrentMovie = useCallback(() => {
+    profileMovies?.filter(movie => {
+      if (movie.id === +id) {
+        setCurrentMovie(movie)
+      }
+    })
+  }, [id, profileMovies])
+
+  useEffect(() => {
+    getCurrentMovie()
+  }, [getCurrentMovie])
 
   useEffect(() => {
     dispatch(addDetailsAsinc(id));
@@ -203,14 +220,24 @@ const DetailsMovie = () => {
   };
 
   return (
-    <>
+    <div className={filterPopup ? styles.overflowHidden : ''}>
       <DetailsMoviesNavbar />
+
       {
         isLoading && detailsMovie
           ? <Details />
           : null
       }
-    </>
+
+      {filterPopup ?
+        <FilterPopup
+          id={id}
+          filtration={filtration}
+          currentMovie={currentMovie}
+        />
+        : null
+      }
+    </div>
   )
 }
 

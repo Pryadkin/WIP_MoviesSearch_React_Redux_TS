@@ -13,7 +13,6 @@ import {
   TAddDetails,
   TAddDetailsAsinc,
   TCleanDetails,
-  TAddFilter,
   TFilterPopupHandler,
   TAddFilterToMovie,
   TRemoveGenreFromMovie,
@@ -35,7 +34,6 @@ export const IS_WITH_PICTURE = "IS_WITH_PICTURE";
 export const ADD_LOGIN_DATA = "ADD_LOGIN_DATA";
 export const REMOVE_LOGIN_DATA = "REMOVE_LOGIN_DATA";
 export const SET_NUMBER_PAGINATION = "SET_NUMBER_PAGINATION";
-export const ADD_FILTER = "ADD_FILTER";
 export const FILTER_POPUP_HANDLER = "FILTER_POPUP_HANDLER";
 export const ADD_FILTER_TO_MOVIE = "ADD_FILTER_TO_MOVIE";
 export const REMOVE_GENRE_FROM_MOVIE = "REMOVE_GENRE_FROM_MOVIE";
@@ -98,11 +96,6 @@ export const addDetailsAsinc = (id: number): TAddDetailsAsinc => ({
 
 export const cleanDetails = (): TCleanDetails => ({
   type: CLEAN_DETAILS
-});
-
-export const addFilter = (name: Array<string> | string): TAddFilter => ({
-  type: ADD_FILTER,
-  payload: name
 });
 
 export const filterPopupHandler = (): TFilterPopupHandler => ({

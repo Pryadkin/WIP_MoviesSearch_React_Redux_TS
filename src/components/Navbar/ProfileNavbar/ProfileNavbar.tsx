@@ -1,9 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-// components 
-import FilterProfile from '../../FilterProfile/FilterProfile';
-
 // styles
 import styles from "./ProfileNavbar.module.scss";
 import { Navbar, Nav } from 'react-bootstrap';
@@ -27,8 +24,6 @@ const ProfileNavbar = () => {
           Search
         </NavLink>
       </Nav>
-
-      <FilterProfile />
     </Navbar >
   )
 }

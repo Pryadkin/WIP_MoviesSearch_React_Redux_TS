@@ -8,6 +8,7 @@ import ProfileNavbar from '../../components/Navbar/ProfileNavbar/ProfileNavbar';
 
 // types
 import { IApplicationState } from '../../redux/rootReducerTypes';
+import Filtration from '../../components/Filtration/FiltrationContainer';
 
 export const ProfilePage = () => {
   const profileMovies = useSelector((state: IApplicationState) => state.movieStateReducer.profileMovies);
@@ -25,6 +26,8 @@ export const ProfilePage = () => {
   return (
     <>
       <ProfileNavbar />
+
+      <Filtration />
 
       <CardsMoviesOfProfile movies={profileMovies} />
     </>

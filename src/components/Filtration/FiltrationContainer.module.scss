@@ -1,0 +1,19 @@
+.genreName {
+  cursor: pointer;
+  transition: .1s;
+
+  &:hover {
+    color: green;
+    margin-left: 2px;
+  }
+}
+
+.genreHasFilters {
+  font-weight: bold;
+}
+
+.container {
+  background-color: #e8e8e8;
+  max-height: 300px;
+  overflow: auto;
+}

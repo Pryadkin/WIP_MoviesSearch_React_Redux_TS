@@ -12,7 +12,6 @@ import {
   REMOVE_MOVIE,
   IS_LOADING,
   SET_NUMBER_PAGINATION,
-  ADD_FILTER,
   FILTER_POPUP_HANDLER,
   ADD_FILTER_TO_MOVIE,
   REMOVE_GENRE_FROM_MOVIE,
@@ -81,11 +80,6 @@ export type TAddDetailsAsinc = {
 
 export type TCleanDetails = {
   type: typeof CLEAN_DETAILS
-};
-
-export type TAddFilter = {
-  type: typeof ADD_FILTER,
-  payload: Array<string> | string
 };
 
 export type TFilterPopupHandler = {

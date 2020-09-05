@@ -11,10 +11,8 @@ import {
   REMOVE_MOVIE,
   IS_LOADING,
   SET_NUMBER_PAGINATION,
-  ADD_FILTER,
   ADD_FILTER_TO_MOVIE,
   REMOVE_GENRE_FROM_MOVIE,
-  REMOVE_GENRE_FROM_ALL_GENRES,
   FILTER_MOVIE_PROFILE
 } from '../actions';
 
@@ -26,7 +24,6 @@ const initialState = {
   stackProfileMovies: [],
   isLoading: false,
   currentNumberPagination: 1,
-  filters: [],
   removeFromLocalStorage: false
 };
 
@@ -61,6 +58,8 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
         stackProfileMovies: action.payload,
       };
     case FILTER_MOVIE_PROFILE:
+      console.log(action.payload)
+      console.log(state.stackProfileMovies)
       return {
         ...state,
         profileMovies:
@@ -99,19 +98,6 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
       return {
         ...state,
         currentNumberPagination: action.payload
-      };
-    case ADD_FILTER:
-      return {
-        ...state,
-        filters: Array.isArray(action.payload)
-          ? [...action.payload, ...state.filters]
-          : [action.payload, ...state.filters]
-      };
-    case REMOVE_GENRE_FROM_ALL_GENRES:
-      return {
-        ...state,
-        filters: state.filters.filter(genre => genre !== action.payload),
-        removeFromLocalStorage: true,
       };
     default: return state;
   };

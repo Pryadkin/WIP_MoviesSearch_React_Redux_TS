@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   addMovieToProfileFromLocalStorage,
   fetchTrendingMoviesAction,
-  addFilter
 } from './redux/actions';
+import { addMoviesFilter } from './redux/filtrationReducer/filtrationReducer';
 
 // components
 import SearchFilmsPage from './pages/SearchFilmsPage/SearchFilmsPage';
@@ -23,17 +23,18 @@ const App: React.FC = () => {
   const dispatch = useDispatch();
   const profileMovies = useSelector((state: IApplicationState) => state.movieStateReducer.profileMovies);
   const removeFromLocalStorage = useSelector((state: IApplicationState) => state.movieStateReducer.removeFromLocalStorage);
-  const filters = useSelector((state: IApplicationState) => state.movieStateReducer.filters);
+  const filtration = useSelector((state: IApplicationState) => state.filtrationReducer.filtration);
 
   const setDataToLocalStorage = useCallback((
     data: IFoundMoviesResults[] | string[] | null,
     name: string,
-    action: (name: Array<string> | string) => { type: string; payload: string | string[]; }
+    action: any
   ) => {
 
-    // removeFromLocalStorage - resolve us to remove element 
-    // from redux-store and don't loader element from localStorage. 
-    // Used to remove the last element from an array.
+    /** removeFromLocalStorage - resolve us to remove element 
+     from redux-store and don't loader element from localStorage. 
+     Used to remove the last element from an array. 
+     */
     if (data && data.length === 0 && !removeFromLocalStorage) {
 
       const filtersJSON = localStorage.getItem(name);
@@ -51,10 +52,10 @@ const App: React.FC = () => {
   }, [dispatch, removeFromLocalStorage])
 
   useEffect(() => {
-    setDataToLocalStorage(filters, 'filters', addFilter);
+    setDataToLocalStorage(filtration, 'filters', addMoviesFilter);
     setDataToLocalStorage(profileMovies, 'profileMovies', addMovieToProfileFromLocalStorage);
     dispatch(fetchTrendingMoviesAction());
-  }, [profileMovies, filters, dispatch, setDataToLocalStorage])
+  }, [profileMovies, filtration, dispatch, setDataToLocalStorage])
 
   return (
     <Switch>

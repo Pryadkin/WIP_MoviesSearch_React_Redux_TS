@@ -1,4 +1,3 @@
-
 export interface IFoundMoviesResults {
   id: number
   popularity: number
@@ -32,7 +31,6 @@ export interface IMovieState {
   isLoading: boolean
   isWithPicture: boolean
   currentNumberPagination: number
-  filters: Array<string>
   removeFromLocalStorage: boolean
 };
 

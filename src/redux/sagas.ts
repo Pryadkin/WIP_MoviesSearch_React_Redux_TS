@@ -11,7 +11,6 @@ import {
 //  types
 import { TSearchMovieAsinc, TAddDetailsAsinc } from './actionsTypes';
 
-
 function* getMovies({ payload }: TSearchMovieAsinc) {
   try {
     const data = yield call(() => fetchMovies(payload.name, payload.isWith, payload.page));
@@ -20,6 +19,7 @@ function* getMovies({ payload }: TSearchMovieAsinc) {
     alert(error);
   }
 }
+
 export interface IGetDetails {
   id: number
 }

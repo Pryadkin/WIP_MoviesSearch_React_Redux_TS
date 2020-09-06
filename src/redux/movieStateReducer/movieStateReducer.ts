@@ -58,8 +58,6 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
         stackProfileMovies: action.payload,
       };
     case FILTER_MOVIE_PROFILE:
-      console.log(action.payload)
-      console.log(state.stackProfileMovies)
       return {
         ...state,
         profileMovies:

@@ -22,6 +22,7 @@ import { IFoundMoviesResults } from './redux/movieStateReducer/movieStateReducer
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const profileMovies = useSelector((state: IApplicationState) => state.movieStateReducer.profileMovies);
+  const stackProfileMovies = useSelector((state: IApplicationState) => state.movieStateReducer.stackProfileMovies);
   const removeFromLocalStorage = useSelector((state: IApplicationState) => state.movieStateReducer.removeFromLocalStorage);
   const filtration = useSelector((state: IApplicationState) => state.filtrationReducer.filtration);
 
@@ -53,9 +54,17 @@ const App: React.FC = () => {
 
   useEffect(() => {
     setDataToLocalStorage(filtration, 'filters', addMoviesFilter);
-    setDataToLocalStorage(profileMovies, 'profileMovies', addMovieToProfileFromLocalStorage);
+
+    if (stackProfileMovies &&
+      profileMovies &&
+      stackProfileMovies?.length < profileMovies?.length) {
+      setDataToLocalStorage(profileMovies, 'profileMovies', addMovieToProfileFromLocalStorage);
+    } else {
+      setDataToLocalStorage(stackProfileMovies, 'profileMovies', addMovieToProfileFromLocalStorage);
+    }
+
     dispatch(fetchTrendingMoviesAction());
-  }, [profileMovies, filtration, dispatch, setDataToLocalStorage])
+  }, [profileMovies, filtration, dispatch, setDataToLocalStorage, stackProfileMovies])
 
   return (
     <Switch>

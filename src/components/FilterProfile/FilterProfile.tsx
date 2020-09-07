@@ -11,10 +11,10 @@ const FilterProfile = () => {
   const [currentGenre, setCurrentGenre] = useState('');
   const dispatch = useDispatch();
 
-  const clickHandler = (e: React.MouseEvent) => {
-    e.preventDefault();
-    dispatch(filterMovieProfile(currentGenre))
-  }
+  // const clickHandler = (e: React.MouseEvent) => {
+  //   e.preventDefault();
+  //   dispatch(filterMovieProfile(currentGenre))
+  // }
 
   return (
     <>

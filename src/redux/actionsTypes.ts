@@ -1,4 +1,5 @@
 import { IFoundMoviesResults } from './movieStateReducer/movieStateReducerTypes';
+import { IFilter } from '../commonInterfaces';
 
 import {
   SEARCH_MOVIE,
@@ -14,7 +15,7 @@ import {
   SET_NUMBER_PAGINATION,
   FILTER_POPUP_HANDLER,
   ADD_FILTER_TO_MOVIE,
-  REMOVE_GENRE_FROM_MOVIE,
+  REMOVE_FILTER_FROM_MOVIE,
   REMOVE_GENRE_FROM_ALL_GENRES,
   FILTER_MOVIE_PROFILE
 } from './actions';
@@ -89,16 +90,16 @@ export type TFilterPopupHandler = {
 export type TAddFilterToMovie = {
   type: typeof ADD_FILTER_TO_MOVIE,
   payload: {
-    id: number,
-    genre: string
+    movieId: number,
+    filter: IFilter
   }
 };
 
-export type TRemoveGenreFromMovie = {
-  type: typeof REMOVE_GENRE_FROM_MOVIE,
+export type TRemoveFilterFromMovie = {
+  type: typeof REMOVE_FILTER_FROM_MOVIE,
   payload: {
-    id: number,
-    genre: string
+    movieId: number,
+    filter: IFilter
   }
 };
 
@@ -109,7 +110,7 @@ export type TRemoveGenreFromAllGenres = {
 
 export type TFilterMovieProfile = {
   type: typeof FILTER_MOVIE_PROFILE,
-  payload: string
+  payload: number | undefined
 };
 
 // export const fetchMovie = (nameMovie: string, isWithPicture: boolean, page: string) => {

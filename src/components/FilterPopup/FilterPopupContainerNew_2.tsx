@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Filtration from '../Filtration/Filtration';
 import { useDispatch } from 'react-redux';
 import { isOpen } from '../../redux/filtrationReducer/filtrationReducer';
-import { filterPopupHandler, addFilterToMovie, removeGenreFromMovie } from '../../redux/actions';
+import { filterPopupHandler, addFilterToMovie, removeFilterFromMovie } from '../../redux/actions';
 
 import { addMoviesFilter, removeMoviesFilter } from '../../redux/filtrationReducer/filtrationReducer';
 
@@ -11,31 +11,37 @@ import { addMoviesFilter, removeMoviesFilter } from '../../redux/filtrationReduc
 import styles from './FilterPopupContainer.module.scss';
 import { Form, Button } from 'react-bootstrap';
 
-
 // types
 import { IFoundMoviesResults } from '../../redux/movieStateReducer/movieStateReducerTypes';
+import { IFilter } from '../../commonInterfaces';
 export interface IFilterPopup {
   id: string
   filtration: any
   currentMovie: IFoundMoviesResults | undefined
 };
 
+// interface newFilter {
+//   id: number
+//   name: string
+// }
+
+
 const FilterPopup = ({ id, filtration, currentMovie }: IFilterPopup) => {
   const dispatch = useDispatch();
   const [isShowFiltration, setIsShowFiltration] = useState<boolean>(false);
-  const [selectedMoviesFilter, setSelectedMoviesFilter] = useState<string>();
+  const [selectedMoviesFilter, setSelectedMoviesFilter] = useState<IFilter>();
   const [selectedMoviesFilterForRemove, setSelectedMoviesFilterForRemove] = useState<string>();
   const [newMoviesFilter, setNewMoviesFilter] = useState<string>('');
-  const currentMovieGenres = currentMovie?.genres;  // for proper operation of useEffect
+  const currentMovieFilters = currentMovie?.filters;  // for proper operation of useEffect
 
   useEffect(() => {
     // filters[0] and currentMovie.genres[0] in "useState" to help use genre without click on select element
-    currentMovieGenres && setSelectedMoviesFilterForRemove(currentMovieGenres[0]);
-  }, [currentMovie, currentMovieGenres])
+    currentMovieFilters && setSelectedMoviesFilterForRemove(`${currentMovieFilters[0]?.id}-${currentMovieFilters[0]?.name}`);
+  }, [currentMovie, currentMovieFilters])
 
-  const changeNest = (name: string) => {
-    setSelectedMoviesFilter(name);
-    dispatch(isOpen(name));
+  const changeNest = ({ id, name }: IFilter, filterIsChosen = true) => {
+    setSelectedMoviesFilter({ id, name });
+    dispatch(isOpen(id));
   };
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +60,7 @@ const FilterPopup = ({ id, filtration, currentMovie }: IFilterPopup) => {
 
   const removeMoviesFilterHandler = () => {
     if (selectedMoviesFilter) {
-      window.confirm('Are you sure to remove movies filter?') && dispatch(removeMoviesFilter(selectedMoviesFilter));
+      window.confirm('Are you sure to remove movies filter?') && dispatch(removeMoviesFilter(selectedMoviesFilter.id));
     }
   }
 
@@ -66,9 +72,15 @@ const FilterPopup = ({ id, filtration, currentMovie }: IFilterPopup) => {
     }
   };
 
+  const splitValue = (str: string) => {
+    const id = parseInt(str);
+    const name = str.slice(id.toString().length + 1);
+    return { id, name }
+  }
+
   const removeFilterFromMovieHandler = () => {
     if (selectedMoviesFilterForRemove) {
-      dispatch(removeGenreFromMovie(+id, selectedMoviesFilterForRemove))
+      dispatch(removeFilterFromMovie(+id, splitValue(selectedMoviesFilterForRemove)))
     } else {
       alert('Please select genre')
     }
@@ -93,7 +105,7 @@ const FilterPopup = ({ id, filtration, currentMovie }: IFilterPopup) => {
               <Form.Label>
                 Add filter
                 <span className={styles.selectedMoviesFilter}>
-                  {selectedMoviesFilter ||
+                  {selectedMoviesFilter?.name ||
                     <span
                       onClick={() => setIsShowFiltration(true)}
                     >
@@ -117,10 +129,10 @@ const FilterPopup = ({ id, filtration, currentMovie }: IFilterPopup) => {
                 as="select"
                 size="sm"
               >
-                {currentMovieGenres &&
-                  currentMovieGenres.map((item: string, index: number) => {
+                {currentMovieFilters &&
+                  currentMovieFilters.map((item: IFilter) => {
                     return (
-                      <option key={`option-${index}`}>{item}</option>
+                      <option key={item.id}>{`${item.id}-${item.name}`}</option>
                     )
                   })
                 }

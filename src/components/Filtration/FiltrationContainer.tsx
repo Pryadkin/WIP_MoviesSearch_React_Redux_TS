@@ -3,18 +3,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IApplicationState } from '../../redux/rootReducerTypes';
 import { isOpen } from '../../redux/filtrationReducer/filtrationReducer';
 import { filterMovieProfile } from '../../redux/actions';
+import { IFilter } from '../../commonInterfaces';
 import Filtration from './Filtration';
 
 const FiltrationContainer = () => {
   const filtration = useSelector((state: IApplicationState) => state.filtrationReducer.filtration);
   const dispatch = useDispatch();
 
-  const changeNest = (name: string) => {
-    if (name === 'all') {
-      dispatch(filterMovieProfile(name));
+  const changeNest = ({ id, name }: IFilter) => {
+    // console.log(id, name)
+    if (id) {
+      dispatch(filterMovieProfile(id));
     } else {
-      dispatch(isOpen(name));
-      dispatch(filterMovieProfile(name));
+      dispatch(isOpen(id));
+      dispatch(filterMovieProfile(id));
     }
   };
 
@@ -22,7 +24,7 @@ const FiltrationContainer = () => {
     <div>
       <h1>Filtration</h1>
 
-      <div onClick={() => changeNest('all')}>
+      <div onClick={() => changeNest({ id: undefined, name: '' })}>
         Show all movies
       </div>
 

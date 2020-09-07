@@ -1,3 +1,5 @@
+import { IFilter } from '../../commonInterfaces';
+
 export interface IFoundMoviesResults {
   id: number
   popularity: number
@@ -13,7 +15,10 @@ export interface IFoundMoviesResults {
   vote_average: number
   overview: string
   release_date: string
-  genres: Array<string> | null
+  filters: {
+    id: number,
+    name: string
+  }[] | null
 }
 
 export interface IFoundMoviesFullData {

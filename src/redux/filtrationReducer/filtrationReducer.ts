@@ -1,4 +1,5 @@
 import { Reducer } from 'redux';
+import { IFilter } from '../../commonInterfaces';
 
 export const IS_OPEN = "IS_OPEN";
 export const ADD_MOVIES_FILTER = "ADD_MOVIES_FILTER";
@@ -8,8 +9,7 @@ const initialState = {
   filtration: [],
 };
 
-// export type TFiltration = typeof initialState;
-export type TFiltration = any;
+export type TFiltration = typeof initialState;
 
 export const filtrationReducer: Reducer<TFiltration> = (state = initialState, action) => {
   switch (action.type) {
@@ -31,28 +31,28 @@ export const filtrationReducer: Reducer<TFiltration> = (state = initialState, ac
 
 type TIsOpen = {
   type: typeof IS_OPEN
-  payload: string
+  payload: number | undefined
 };
 
 export type TAddMoviesFilter = {
   type: typeof ADD_MOVIES_FILTER
   payload: {
     newMoviesFilter: string,
-    selectedMoviesFilter: string | undefined
+    selectedMoviesFilter: IFilter | undefined
   }
 };
 
 export type TRemoveMoviesFilter = {
   type: typeof REMOVE_MOVIES_FILTER
-  payload: string
+  payload: number | undefined
 };
 
-export const isOpen = (name: string): TIsOpen => ({
+export const isOpen = (filterId: number | undefined): TIsOpen => ({
   type: IS_OPEN,
-  payload: name
+  payload: filterId
 })
 
-export const addMoviesFilter = (newMoviesFilter: any, selectedMoviesFilter?: string): TAddMoviesFilter => ({
+export const addMoviesFilter = (newMoviesFilter: any, selectedMoviesFilter?: IFilter): TAddMoviesFilter => ({
   type: ADD_MOVIES_FILTER,
   payload: {
     newMoviesFilter,
@@ -60,18 +60,18 @@ export const addMoviesFilter = (newMoviesFilter: any, selectedMoviesFilter?: str
   }
 })
 
-export const removeMoviesFilter = (selectedMoviesFilter: string): TRemoveMoviesFilter => ({
+export const removeMoviesFilter = (filter_id: number | undefined): TRemoveMoviesFilter => ({
   type: REMOVE_MOVIES_FILTER,
-  payload: selectedMoviesFilter
+  payload: filter_id
 })
 
-function getFiltration(arr: any, payload: string) {
-  return arr.map((item: { name: string, filters: any, isOpen: boolean }) => {
+function getFiltration(arr: any, payload: number) {
+  return arr.map((item: { id: number, filters: any, isOpen: boolean }) => {
 
     if (item.filters) {
       return {
         ...item,
-        isOpen: item.name === payload ? !item.isOpen : item.isOpen,
+        isOpen: item.id === payload ? !item.isOpen : item.isOpen,
         filters: getFiltration(item.filters, payload)
       }
     } else {
@@ -84,38 +84,52 @@ function getFiltration(arr: any, payload: string) {
 function addMoviesFilterFunc(
   arr: any,
   payload: {
-    newMoviesFilter: any,
-    selectedMoviesFilter: string | undefined
+    newMoviesFilter: string,
+    selectedMoviesFilter: IFilter | undefined
   }) {
+  const uniqueId = Math.trunc(Math.random() * 10e5);
 
+  // get data from the localStorage
   if (Array.isArray(payload.newMoviesFilter)) {
     return payload.newMoviesFilter
   }
 
-  if (!payload.selectedMoviesFilter) {
+  /** if we don't selected the place to insert the filter,
+   * the filter will be inserted at the topmost level
+   */
+  if (!payload.selectedMoviesFilter?.id) {
     return [
       ...arr,
-      { name: payload.newMoviesFilter }
+      {
+        id: uniqueId,
+        name: payload.newMoviesFilter
+      }
     ]
   }
 
-  return arr.map((item: { name: string, filters: any, isOpen: boolean }) => {
+  return arr.map((item: { id: number, name: string, filters: Array<IFilter>, isOpen: boolean }) => {
 
-    if (item.name === payload.selectedMoviesFilter) {
+    if (item.id === payload.selectedMoviesFilter?.id) {
       if (item.filters) {
         return {
-          name: item.name,
+          ...item,
           isOpen: true,
           filters: [
             ...item.filters,
-            { name: payload.newMoviesFilter }
+            {
+              id: uniqueId,
+              name: payload.newMoviesFilter
+            }
           ]
         }
       } else {
         return {
-          name: item.name,
+          ...item,
           isOpen: true,
-          filters: [{ name: payload.newMoviesFilter }]
+          filters: [{
+            id: uniqueId,
+            name: payload.newMoviesFilter
+          }]
         }
       }
 
@@ -133,12 +147,12 @@ function addMoviesFilterFunc(
   })
 }
 
-function removeMoviesFilterFunc(arr: any, payload: string) {
+function removeMoviesFilterFunc(arr: any, payload: number) {
   if (!payload) {
     return [...arr]
   }
 
-  const newArr = arr.filter((item: { name: string }) => item.name !== payload);
+  const newArr = arr.filter((item: { id: number }) => item.id !== payload);
 
   if (newArr.length < arr.length) {
 
@@ -146,11 +160,14 @@ function removeMoviesFilterFunc(arr: any, payload: string) {
 
   } else {
 
-    return arr.map((item: { name: string, filters: any, isOpen: boolean }) => {
+    return arr.map((item: { id: number, name: string, filters: any, isOpen: boolean }) => {
       if (item.filters) {
         const newArray = removeMoviesFilterFunc(item.filters, payload);
         if (newArray.length < 1) {
-          return { name: item.name }
+          return {
+            id: item.id,
+            name: item.name
+          }
         } else {
           return {
             ...item,

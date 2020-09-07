@@ -1,5 +1,6 @@
 import { Reducer } from 'redux';
-import { IMovieState } from './movieStateReducerTypes';
+import { IMovieState, IFoundMoviesResults } from './movieStateReducerTypes';
+import { IFilter } from '../../commonInterfaces';
 
 import {
   SEARCH_MOVIE,
@@ -12,7 +13,7 @@ import {
   IS_LOADING,
   SET_NUMBER_PAGINATION,
   ADD_FILTER_TO_MOVIE,
-  REMOVE_GENRE_FROM_MOVIE,
+  REMOVE_FILTER_FROM_MOVIE,
   FILTER_MOVIE_PROFILE
 } from '../actions';
 
@@ -45,7 +46,7 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
         profileMovies: null
       };
     case ADD_MOVIE_TO_PROFILE:
-      action.payload.genres = []; // adding genres proporty to profileMovies
+      action.payload.filters = []; // adding filters proporty to profileMovies
       return {
         ...state,
         profileMovies: [action.payload, ...state.profileMovies],
@@ -60,10 +61,7 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
     case FILTER_MOVIE_PROFILE:
       return {
         ...state,
-        profileMovies:
-          action.payload === 'all'
-            ? state.stackProfileMovies
-            : state.stackProfileMovies?.filter(movie => movie.genres?.includes(action.payload))
+        profileMovies: getFilt(state.stackProfileMovies, action.payload)
       };
     case REMOVE_MOVIE:
       return {
@@ -75,12 +73,12 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
     case ADD_FILTER_TO_MOVIE:
       return {
         ...state,
-        profileMovies: addFilterToMovie()
+        profileMovies: addFilterToMovie(state.profileMovies, action.payload)
       };
-    case REMOVE_GENRE_FROM_MOVIE:
+    case REMOVE_FILTER_FROM_MOVIE:
       return {
         ...state,
-        profileMovies: removeGenreFromMovie()
+        profileMovies: removeFilterFromMovie(state.profileMovies, action.payload)
       };
     case IS_LOADING:
       return {
@@ -99,29 +97,56 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
       };
     default: return state;
   };
-
-  function addFilterToMovie() {
-    return state.profileMovies?.map(movie => {
-      if (movie.id === action.payload.id) {
-        movie.genres?.unshift(action.payload.genre)
-        return movie;
-      } else {
-        return movie;
-      }
-    })
-  };
-
-  function removeGenreFromMovie() {
-    return state.profileMovies?.map(movie => {
-      if (movie.id === action.payload.id) {
-        if (movie.genres) {
-          movie.genres = movie.genres?.filter(genre => genre !== action.payload.genre);
-        }
-        return movie;
-      } else {
-        return movie;
-      }
-    })
-  }
 };
 
+function addFilterToMovie(
+  profileMovies: Array<IFoundMoviesResults> | null,
+  payload: { movieId: number, filter: { id: number, name: string } }
+) {
+  return profileMovies?.map(movie => {
+    if (movie.id === payload.movieId) {
+      movie.filters?.push(payload.filter)
+      return movie;
+    } else {
+      return movie;
+    }
+  })
+};
+
+function removeFilterFromMovie(
+  profileMovies: Array<IFoundMoviesResults> | null,
+  payload: { movieId: number, filter: { id: number, name: string } }
+) {
+  return profileMovies?.map(movie => {
+    if (movie.id === payload.movieId) {
+      if (movie.filters) {
+        movie.filters = movie.filters?.filter(item => item.id !== payload.filter.id);
+      }
+      return movie;
+    } else {
+      return movie;
+    }
+  })
+}
+
+function getFilt(
+  stackProfileMovies: Array<IFoundMoviesResults> | null,
+  filterId: number
+) {
+  console.log(filterId)
+
+  const newArray = stackProfileMovies?.filter(movie => {
+    if (movie.filters && movie.filters.length > 0) {
+      Object.values(movie.filters).forEach(item => {
+        if (item.id === filterId) {
+          return true
+        } else {
+          return false
+        }
+      })
+    }
+
+  })
+  console.log(newArray)
+  return stackProfileMovies
+}

@@ -1,24 +1,31 @@
 import React from 'react';
 import styles from './FiltrationContainer.module.scss';
+import { IFilter } from '../../commonInterfaces';
 
 interface IFiltration {
   filtration: any,
-  changeNest: (name: string) => void
+  changeNest: ({ id: number, name: string }: IFilter) => void
+}
+
+export interface IItem {
+  id: number,
+  name: string,
+  isOpen: boolean,
+  filters: Array<IItem>
 }
 
 const Filtration: React.FC<IFiltration> = ({ filtration, changeNest }) => {
 
   const filt = (array: any) => {
 
-    return array.map((item: any, index: number) => {
-
+    return array.map((item: IItem, index: number) => {
       if (item.filters) {
 
         return (
-          <div key={index}>
+          <div key={`${item.id}-${index}`}>
             <div
               className={[styles.genreName, styles.genreHasFilters].join(' ')}
-              onClick={() => changeNest(item.name)}
+              onClick={() => changeNest({ id: item.id, name: item.name })}
             >
               {item.name}
             </div>
@@ -35,9 +42,9 @@ const Filtration: React.FC<IFiltration> = ({ filtration, changeNest }) => {
 
       return (
         <div
-          key={index}
+          key={`${item.id}-${index}`}
           className={styles.genreName}
-          onClick={() => changeNest(item.name)}
+          onClick={() => changeNest({ id: item.id, name: item.name })}
         >
           {item.name}
         </div>

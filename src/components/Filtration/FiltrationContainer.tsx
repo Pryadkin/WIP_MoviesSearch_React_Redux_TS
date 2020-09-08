@@ -11,11 +11,10 @@ const FiltrationContainer = () => {
   const dispatch = useDispatch();
 
   const changeNest = ({ id, name }: IFilter) => {
-    // console.log(id, name)
     if (id) {
+      dispatch(isOpen(id));
       dispatch(filterMovieProfile(id));
     } else {
-      dispatch(isOpen(id));
       dispatch(filterMovieProfile(id));
     }
   };

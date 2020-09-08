@@ -39,7 +39,7 @@ const FilterPopup = ({ id, filtration, currentMovie }: IFilterPopup) => {
     currentMovieFilters && setSelectedMoviesFilterForRemove(`${currentMovieFilters[0]?.id}-${currentMovieFilters[0]?.name}`);
   }, [currentMovie, currentMovieFilters])
 
-  const changeNest = ({ id, name }: IFilter, filterIsChosen = true) => {
+  const changeNest = ({ id, name }: IFilter) => {
     setSelectedMoviesFilter({ id, name });
     dispatch(isOpen(id));
   };

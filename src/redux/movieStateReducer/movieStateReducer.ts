@@ -1,6 +1,5 @@
 import { Reducer } from 'redux';
 import { IMovieState, IFoundMoviesResults } from './movieStateReducerTypes';
-import { IFilter } from '../../commonInterfaces';
 
 import {
   SEARCH_MOVIE,
@@ -133,20 +132,19 @@ function getFilt(
   stackProfileMovies: Array<IFoundMoviesResults> | null,
   filterId: number
 ) {
-  console.log(filterId)
+  if (!filterId) return stackProfileMovies;
 
-  const newArray = stackProfileMovies?.filter(movie => {
+  return stackProfileMovies?.filter(movie => {
     if (movie.filters && movie.filters.length > 0) {
-      Object.values(movie.filters).forEach(item => {
+
+      const arrayFiltersOfMovie = Object.values(movie.filters).filter(item => {
         if (item.id === filterId) {
           return true
         } else {
           return false
         }
       })
+      return arrayFiltersOfMovie.length > 0 ? true : false
     }
-
   })
-  console.log(newArray)
-  return stackProfileMovies
 }

@@ -66,9 +66,13 @@ const FilterPopup = ({ id, filtration, currentMovie }: IFilterPopup) => {
 
   const addFilterToMovieHandler = () => {
     if (selectedMoviesFilter) {
-      dispatch(addFilterToMovie(+id, selectedMoviesFilter))
+      if (currentMovieFilters?.find(filter => filter.id === selectedMoviesFilter.id)) {
+        alert('This filter already exists in the movie')
+      } else {
+        dispatch(addFilterToMovie(+id, selectedMoviesFilter))
+      }
     } else {
-      alert('Please select genre')
+      alert('Please select filter')
     }
   };
 
@@ -87,7 +91,6 @@ const FilterPopup = ({ id, filtration, currentMovie }: IFilterPopup) => {
   };
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.currentTarget.value)
     setSelectedMoviesFilterForRemove(e.currentTarget.value)
   };
 

@@ -54,7 +54,7 @@ const DetailsMoviesNavbar = () => {
             variant="light"
             onClick={() => dispatch(filterPopupHandler())}
           >
-            Add genre
+            Add filter
           </Button>
         </Nav>
 

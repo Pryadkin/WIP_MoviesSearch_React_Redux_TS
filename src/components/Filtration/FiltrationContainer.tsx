@@ -6,6 +6,8 @@ import { filterMovieProfile } from '../../redux/actions';
 import { IFilter } from '../../commonInterfaces';
 import Filtration from './Filtration';
 
+import styles from './FiltrationContainer.module.scss';
+
 const FiltrationContainer = () => {
   const filtration = useSelector((state: IApplicationState) => state.filtrationReducer.filtration);
   const dispatch = useDispatch();
@@ -22,15 +24,19 @@ const FiltrationContainer = () => {
   return (
     <div>
       <h1>Filtration</h1>
+      <div className={styles.container}>
 
-      <div onClick={() => changeNest({ id: undefined, name: '' })}>
-        Show all movies
+        <div className={styles.filterName}
+          onClick={() => changeNest({ id: undefined, name: '' })}
+        >
+          Show all movies
+        </div>
+
+        <Filtration
+          filtration={filtration}
+          changeNest={changeNest}
+        />
       </div>
-
-      <Filtration
-        filtration={filtration}
-        changeNest={changeNest}
-      />
     </div>
   )
 }

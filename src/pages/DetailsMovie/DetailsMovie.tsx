@@ -10,7 +10,7 @@ import dollarIcon from '../../img/icons/dollarIcon.png';
 
 // components
 import DetailsMoviesNavbar from '../../components/Navbar/DetailsMoviesNavbar/DetailsMoviesNavbar';
-import FilterPopup from '../../components/FilterPopup/FilterPopupContainerNew_2';
+import FilterPopup from '../../components/FilterPopup/FilterPopupContainer';
 
 // styles
 import { Container, Row, Col, Image, Button } from 'react-bootstrap';

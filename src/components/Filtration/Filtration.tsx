@@ -23,11 +23,19 @@ const Filtration: React.FC<IFiltration> = ({ filtration, changeNest }) => {
 
         return (
           <div key={`${item.id}-${index}`}>
-            <div
-              className={[styles.genreName, styles.genreHasFilters].join(' ')}
-              onClick={() => changeNest({ id: item.id, name: item.name })}
-            >
-              {item.name}
+            <div className={styles.filterContainer}>
+              <div
+                className={styles.filterName}
+              >
+                {item.name}
+              </div>
+
+              <div
+                className={styles.filterArrow}
+                onClick={() => changeNest({ id: item.id, name: item.name })}
+              >
+                &gt;&gt;
+              </div>
             </div>
 
             {item.isOpen ?
@@ -43,7 +51,7 @@ const Filtration: React.FC<IFiltration> = ({ filtration, changeNest }) => {
       return (
         <div
           key={`${item.id}-${index}`}
-          className={styles.genreName}
+          className={styles.filterName}
           onClick={() => changeNest({ id: item.id, name: item.name })}
         >
           {item.name}
@@ -53,12 +61,12 @@ const Filtration: React.FC<IFiltration> = ({ filtration, changeNest }) => {
   }
 
   return (
-    <div className={styles.container}>
+    <>
       {filtration ?
         filt(filtration)
         : 'Filters is not found'
       }
-    </div>
+    </>
   )
 
 }

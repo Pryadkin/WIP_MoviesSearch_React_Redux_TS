@@ -13,12 +13,7 @@ const FiltrationContainer = () => {
   const dispatch = useDispatch();
 
   const changeNest = ({ id, name }: IFilter) => {
-    if (id) {
-      dispatch(isOpen(id));
-      dispatch(filterMovieProfile(id));
-    } else {
-      dispatch(filterMovieProfile(id));
-    }
+    dispatch(filterMovieProfile(id));
   };
 
   return (
@@ -35,6 +30,7 @@ const FiltrationContainer = () => {
         <Filtration
           filtration={filtration}
           changeNest={changeNest}
+          isOpen={(id) => dispatch(isOpen(id))}
         />
       </div>
     </div>

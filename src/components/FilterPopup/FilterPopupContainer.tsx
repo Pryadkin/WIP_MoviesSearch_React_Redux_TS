@@ -20,12 +20,6 @@ export interface IFilterPopup {
   currentMovie: IFoundMoviesResults | undefined
 };
 
-// interface newFilter {
-//   id: number
-//   name: string
-// }
-
-
 const FilterPopup = ({ id, filtration, currentMovie }: IFilterPopup) => {
   const dispatch = useDispatch();
   const [isShowFiltration, setIsShowFiltration] = useState<boolean>(false);
@@ -41,7 +35,6 @@ const FilterPopup = ({ id, filtration, currentMovie }: IFilterPopup) => {
 
   const changeNest = ({ id, name }: IFilter) => {
     setSelectedMoviesFilter({ id, name });
-    dispatch(isOpen(id));
   };
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -186,6 +179,7 @@ const FilterPopup = ({ id, filtration, currentMovie }: IFilterPopup) => {
               <Filtration
                 filtration={filtration}
                 changeNest={changeNest}
+                isOpen={(id) => dispatch(isOpen(id))}
               />
             }
           </div>

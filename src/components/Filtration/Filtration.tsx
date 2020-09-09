@@ -5,6 +5,7 @@ import { IFilter } from '../../commonInterfaces';
 interface IFiltration {
   filtration: any,
   changeNest: ({ id: number, name: string }: IFilter) => void
+  isOpen: (id: number) => void
 }
 
 export interface IItem {
@@ -14,7 +15,7 @@ export interface IItem {
   filters: Array<IItem>
 }
 
-const Filtration: React.FC<IFiltration> = ({ filtration, changeNest }) => {
+const Filtration: React.FC<IFiltration> = ({ filtration, changeNest, isOpen }) => {
 
   const filt = (array: any) => {
 
@@ -26,13 +27,14 @@ const Filtration: React.FC<IFiltration> = ({ filtration, changeNest }) => {
             <div className={styles.filterContainer}>
               <div
                 className={styles.filterName}
+                onClick={() => changeNest({ id: item.id, name: item.name })}
               >
                 {item.name}
               </div>
 
               <div
                 className={styles.filterArrow}
-                onClick={() => changeNest({ id: item.id, name: item.name })}
+                onClick={() => isOpen(item.id)}
               >
                 &gt;&gt;
               </div>

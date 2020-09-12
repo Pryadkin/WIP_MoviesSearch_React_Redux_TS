@@ -11,6 +11,7 @@ interface IFiltration {
 export interface IItem {
   id: number,
   name: string,
+  path: string,
   isOpen: boolean,
   filters: Array<IItem>
 }
@@ -27,7 +28,7 @@ const Filtration: React.FC<IFiltration> = ({ filtration, changeNest, isOpen }) =
             <div className={styles.filterContainer}>
               <div
                 className={styles.filterName}
-                onClick={() => changeNest({ id: item.id, name: item.name })}
+                onClick={() => changeNest({ id: item.id, name: item.name, path: item.path })}
               >
                 {item.name}
               </div>
@@ -54,7 +55,7 @@ const Filtration: React.FC<IFiltration> = ({ filtration, changeNest, isOpen }) =
         <div
           key={`${item.id}-${index}`}
           className={styles.filterName}
-          onClick={() => changeNest({ id: item.id, name: item.name })}
+          onClick={() => changeNest({ id: item.id, name: item.name, path: item.path })}
         >
           {item.name}
         </div>

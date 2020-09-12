@@ -102,12 +102,13 @@ function addMoviesFilterFunc(
       ...arr,
       {
         id: uniqueId,
-        name: payload.newMoviesFilter
+        name: payload.newMoviesFilter,
+        path: payload.newMoviesFilter
       }
     ]
   }
 
-  return arr.map((item: { id: number, name: string, filters: Array<IFilter>, isOpen: boolean }) => {
+  return arr.map((item: { id: number, name: string, path: string, filters: Array<IFilter>, isOpen: boolean }) => {
 
     if (item.id === payload.selectedMoviesFilter?.id) {
       if (item.filters) {
@@ -118,7 +119,8 @@ function addMoviesFilterFunc(
             ...item.filters,
             {
               id: uniqueId,
-              name: payload.newMoviesFilter
+              name: payload.newMoviesFilter,
+              path: `${item.path}/${payload.newMoviesFilter}`
             }
           ]
         }
@@ -128,7 +130,8 @@ function addMoviesFilterFunc(
           isOpen: true,
           filters: [{
             id: uniqueId,
-            name: payload.newMoviesFilter
+            name: payload.newMoviesFilter,
+            path: `${item.path}/${payload.newMoviesFilter}`
           }]
         }
       }

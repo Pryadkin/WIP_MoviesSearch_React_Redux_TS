@@ -99,7 +99,7 @@ export type TRemoveFilterFromMovie = {
   type: typeof REMOVE_FILTER_FROM_MOVIE,
   payload: {
     movieId: number,
-    filter: IFilter
+    path: string
   }
 };
 

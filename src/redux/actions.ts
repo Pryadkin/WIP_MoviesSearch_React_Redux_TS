@@ -109,9 +109,9 @@ export const addFilterToMovie = (movieId: number, filter: IFilter): TAddFilterTo
   payload: { movieId, filter }
 });
 
-export const removeFilterFromMovie = (movieId: number, filter: { id: number, name: string }): TRemoveFilterFromMovie => ({
+export const removeFilterFromMovie = (movieId: number, path: string): TRemoveFilterFromMovie => ({
   type: REMOVE_FILTER_FROM_MOVIE,
-  payload: { movieId, filter }
+  payload: { path, movieId }
 });
 
 export const removeGenreFromAllGenres = (genre: string): TRemoveGenreFromAllGenres => ({

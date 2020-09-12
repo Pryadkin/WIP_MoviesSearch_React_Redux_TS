@@ -22,7 +22,7 @@ const FiltrationContainer = () => {
       <div className={styles.container}>
 
         <div className={styles.filterName}
-          onClick={() => changeNest({ id: undefined, name: '' })}
+          onClick={() => changeNest({ id: undefined, name: '', path: '' })}
         >
           Show all movies
         </div>

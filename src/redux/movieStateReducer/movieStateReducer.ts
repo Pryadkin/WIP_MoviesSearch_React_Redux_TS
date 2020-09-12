@@ -100,7 +100,7 @@ export const movieStateReducer: Reducer<IMovieState> = (state = initialState, ac
 
 function addFilterToMovie(
   profileMovies: Array<IFoundMoviesResults> | null,
-  payload: { movieId: number, filter: { id: number, name: string } }
+  payload: { movieId: number, filter: { id: number, name: string, path: string } }
 ) {
   return profileMovies?.map(movie => {
     if (movie.id === payload.movieId) {
@@ -114,12 +114,14 @@ function addFilterToMovie(
 
 function removeFilterFromMovie(
   profileMovies: Array<IFoundMoviesResults> | null,
-  payload: { movieId: number, filter: { id: number, name: string } }
+  payload: { movieId: number, path: string }
 ) {
   return profileMovies?.map(movie => {
+    console.log(movie.id, payload.movieId)
     if (movie.id === payload.movieId) {
+      console.log(payload)
       if (movie.filters) {
-        movie.filters = movie.filters?.filter(item => item.id !== payload.filter.id);
+        movie.filters = movie.filters?.filter(item => item.path !== payload.path);
       }
       return movie;
     } else {

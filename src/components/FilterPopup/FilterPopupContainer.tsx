@@ -30,11 +30,12 @@ const FilterPopup = ({ id, filtration, currentMovie }: IFilterPopup) => {
 
   useEffect(() => {
     // filters[0] and currentMovie.genres[0] in "useState" to help use genre without click on select element
-    currentMovieFilters && setSelectedMoviesFilterForRemove(`${currentMovieFilters[0]?.id}-${currentMovieFilters[0]?.name}`);
+    currentMovieFilters && setSelectedMoviesFilterForRemove(currentMovieFilters[0]?.path);
   }, [currentMovie, currentMovieFilters])
 
-  const changeNest = ({ id, name }: IFilter) => {
-    setSelectedMoviesFilter({ id, name });
+  const changeNest = ({ id, name, path }: IFilter) => {
+    console.log(path)
+    setSelectedMoviesFilter({ id, name, path });
   };
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,15 +70,15 @@ const FilterPopup = ({ id, filtration, currentMovie }: IFilterPopup) => {
     }
   };
 
-  const splitValue = (str: string) => {
-    const id = parseInt(str);
-    const name = str.slice(id.toString().length + 1);
-    return { id, name }
-  }
+  // const splitValue = (str: string) => {
+  //   const id = parseInt(str);
+  //   const name = str.slice(id.toString().length + 1);
+  //   return { id, name, path }
+  // }
 
   const removeFilterFromMovieHandler = () => {
     if (selectedMoviesFilterForRemove) {
-      dispatch(removeFilterFromMovie(+id, splitValue(selectedMoviesFilterForRemove)))
+      dispatch(removeFilterFromMovie(+id, selectedMoviesFilterForRemove))
     } else {
       alert('Please select genre')
     }
@@ -101,7 +102,7 @@ const FilterPopup = ({ id, filtration, currentMovie }: IFilterPopup) => {
               <Form.Label>
                 Add filter
                 <span className={styles.selectedMoviesFilter}>
-                  {selectedMoviesFilter?.name ||
+                  {selectedMoviesFilter?.path ||
                     <span
                       onClick={() => setIsShowFiltration(true)}
                     >
@@ -128,7 +129,7 @@ const FilterPopup = ({ id, filtration, currentMovie }: IFilterPopup) => {
                 {currentMovieFilters &&
                   currentMovieFilters.map((item: IFilter) => {
                     return (
-                      <option key={item.id}>{`${item.id}-${item.name}`}</option>
+                      <option key={item.id}>{item.path}</option>
                     )
                   })
                 }

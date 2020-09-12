@@ -17,7 +17,8 @@ export interface IFoundMoviesResults {
   release_date: string
   filters: {
     id: number,
-    name: string
+    name: string,
+    path: string
   }[] | null
 }
 

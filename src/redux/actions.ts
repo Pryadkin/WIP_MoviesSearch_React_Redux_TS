@@ -119,9 +119,9 @@ export const removeGenreFromAllGenres = (genre: string): TRemoveGenreFromAllGenr
   payload: genre
 });
 
-export const filterMovieProfile = (filterId: number | undefined): TFilterMovieProfile => ({
+export const filterMovieProfile = (filterId: number | undefined, path: string | undefined): TFilterMovieProfile => ({
   type: FILTER_MOVIE_PROFILE,
-  payload: filterId
+  payload: { filterId, path }
 });
 
 export const fetchTrendingMoviesAction = () => {

@@ -117,9 +117,7 @@ function removeFilterFromMovie(
   payload: { movieId: number, path: string }
 ) {
   return profileMovies?.map(movie => {
-    console.log(movie.id, payload.movieId)
     if (movie.id === payload.movieId) {
-      console.log(payload)
       if (movie.filters) {
         movie.filters = movie.filters?.filter(item => item.path !== payload.path);
       }
@@ -132,7 +130,7 @@ function removeFilterFromMovie(
 
 function getFilt(
   stackProfileMovies: Array<IFoundMoviesResults> | null,
-  filterId: number
+  { filterId, path }: { filterId: number, path: string }
 ) {
   if (!filterId) return stackProfileMovies;
 
@@ -140,7 +138,8 @@ function getFilt(
     if (movie.filters && movie.filters.length > 0) {
 
       const arrayFiltersOfMovie = Object.values(movie.filters).filter(item => {
-        if (item.id === filterId) {
+
+        if (path === item.path.slice(0, path.length)) {
           return true
         } else {
           return false

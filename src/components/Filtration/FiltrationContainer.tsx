@@ -12,8 +12,8 @@ const FiltrationContainer = () => {
   const filtration = useSelector((state: IApplicationState) => state.filtrationReducer.filtration);
   const dispatch = useDispatch();
 
-  const changeNest = ({ id, name }: IFilter) => {
-    dispatch(filterMovieProfile(id));
+  const changeNest = ({ id, name, path }: IFilter) => {
+    dispatch(filterMovieProfile(id, path));
   };
 
   return (

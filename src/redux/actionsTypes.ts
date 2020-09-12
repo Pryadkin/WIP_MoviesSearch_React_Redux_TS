@@ -110,7 +110,10 @@ export type TRemoveGenreFromAllGenres = {
 
 export type TFilterMovieProfile = {
   type: typeof FILTER_MOVIE_PROFILE,
-  payload: number | undefined
+  payload: {
+    filterId: number | undefined,
+    path: string | undefined
+  }
 };
 
 // export const fetchMovie = (nameMovie: string, isWithPicture: boolean, page: string) => {
